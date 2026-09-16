@@ -63,10 +63,17 @@ check_free.py
 stitch_modern_animated_portfolio_redesign (4).zip
 stitch_modern_animated_portfolio_redesign (5).zip
 
-# Version backups (not pushed) — keep repo lean
+# Version backups (not pushed) ï¿½ keep repo lean
 versions/v1-2026-09-13-backup/
 versions/v1-2026-09-08/backup/
 
 # Local AI assistant executables
 assistant.exe
 Mahmoud_Rabeh_Assistant.exe
+
+# vidscribe / faster-whisper model cache (downloaded per-CWD)
+.faster-whisper-model/
+
+# Playwright MCP screenshots/snapshots (local only)
+.playwright-mcp/
+

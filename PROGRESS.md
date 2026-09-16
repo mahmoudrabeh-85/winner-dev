@@ -1,5 +1,35 @@
 # PROGRESS
 
+## Section 2026-09-16 (إصلاح الداشبورد + صفحة فلتر ذكية — DONE)
+- ✅ **إصلاح قاتل في الداشبورد**: `dashboard.html` — الـ iframes كانت تشير لنفسها (`src=""` → المتصفح يفسّره كعنوان الصفحة الحالية). **الحل:** إزالة `src=""` بالكامل والاستخدام فقط `data-src` مع تعيين `src` عند النقر (lazy loading). كل 4 التبويبات تعمل الآن ✅.
+- ✅ **API تصفية جديد**: أُضيف `/api/search` في `job_app.py` — يقبل: source, work_type, min_score, q (بحث نصي), skills, location, limit. يُرجع وظائف مع تحليل CV. **إضافة حاسمة:** `dict(j)` لتحويل `sqlite3.Row` → dict (كان يسبب 500 error).
+- ✅ **صفحة فلتر ذكية** `setup.html`: بدل صفحة إعدادات تحوّلت لصفحة فلتر + نتائج مباشرة — حقل بحث نصي + بطاقات مصادر قابلة للتحديد + فلترة حسب المصدر ونوع العمل + عرض النتائج في الوقت الحقيقي (AJAX) + أزرار تصنيف (الكل/عالٍ/متوسط/منخفض) + رابط العودة للداشبورد. **مُختبَر**: 150 وظيفة مطابقة تظهر ✅.
+- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator. شهادة Oracle SCM (3-6 أشهر). تنظيف ذاكرة completed projects.
+
+## Section 2026-09-15/16 (MCP/UI-UX على المشاريع المنفذة — جاري الإغلاق)
+- ✅ **داشبورد المشاريع (Command Center)**: `D:\ai\tools\dashboard\generate_dashboard.py` يقرأ 10 مشاريع + ملفات الذاكرة (استخراج ✅/⬜ تلقائي + أوقات متوقعة) + فحص حي (HTTP 200 / عمليات Python / منافذ). Dashboard v1: 134 منجز، 53 معلّق، 4 نشطة. **مُختبَر**: خادم 8800 + Playwright DOM (10 بطاقات، portfolio 76%， job-hunt 73%， الموقع 200 OK ✅， بايثون يعمل 4 عمليات ✅).
+- ✅ **CLI Launcher موحّد بالهوية الموحدة**: `D:\ai\tools\cli_launcher.html` — مرساة **Industrial** (أسود `#0B0C0A` + mono + حدود 1px + acid `#C6FF4A`) مع توكنز uiux-pro. بطاقة dashboard مُضافة. **مُختبَر**: 22 أداة، 21/22 مثبتة ✅.
+- ✅ **job-hunt index.html تدقيق WCAG**: أُضيف `:focus-visible` (WCAG 2.4.7) + `@media (prefers-reduced-motion: reduce)` (WCAG 2.3.3) + زر back-to-top + `modal.scrollTop=0` عند الفتح. الأقواس: 194/194. **مُختبَر**: 142 وظيفة محمّلة، مودال ring يعمل ✅.
+- ✅ **نظام تصميم موحّد**: مرساة Industrial (frontend-design skill) + لوحة uiux-pro (`#440154/#21918C/#FDE725/#1A1A2E/#F5F5F5`) — مستخدمة في Dashboard + Launcher. job-hunt تحتفظ بتوكنزها الخاصة (مطابقة أصلاً).
+- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator. شهادة Oracle SCM (3-6 أشهر). تنظيف ذاكرة completed projects.
+
+## Section 2026-09-15 (Search: Design/Frontend MCPs + Google Stitch + Skills — DONE)
+- ✅ **بحث توثيقي عبر GitHub API**: أفضل 10 MCP تصميم/فرونت إند = chrome-devtools (52,051⭐) / playwright (37,144⭐) / Figma-Context (15,864⭐) / magic-mcp (5,871⭐) / executeautomation (5,644⭐) / design-extract (4,101⭐) / shadcn-ui (2,991⭐) / fetcher-mcp (1,085⭐) / penpot (503⭐) / better-design (233⭐) — الأرقام فعلية اليوم.
+- ✅ **Google Stitch اكتُشف بالكامل**: الرسمي `google-labs-code/stitch-skills` (8,260⭐ — 16 مهارة تدعم OpenCode يدوياً) + MCP عبر `stitch.googleapis.com/mcp` (يتطلب إعداد GCP: gcloud auth + تفعيل Stitch API عبر `npx @_davideast/stitch-mcp init`).
+- ✅ **14 مهارة تصميم منتقاة + مثبتة** في `C:\Users\RTX\.config\opencode\skills\selected\` (585KB) عبر `skills.paths` — 9 من Stitch + 5 Anti-slop (superdesign/brandkit/frontend-design/audit/extract-design).
+- ✅ **MCP جديد مفعّل**: `chrome-devtools` (npx) + **MCP معطّل بانتظار GCP**: `stitch` (remote).
+- ✅ **ملف مرجعي شامل**: `C:\Users\RTX\.config\opencode\DESIGN-REFERENCES.md` — جدول اختيار + كل MCPs/mهارات/CLI + أفضل 10 سوق — أُضيف إلى instructions (auto-load كل جلسة).
+- ✅ التحقق: 188/188 قوساً + `opencode run` رد "تمام" بعد تحميل الإعداد الجديد.
+- ⬜ **إعادة تشغيل opencode** لتحميل المهارات و MCP الجديد.
+- ⬜ المستخدم: تفعيل Stitch MCP لاحقاً (`npx @_davideast/stitch-mcp init` — 10-15 دقيقة).
+
+## Section 2026-09-15 (v4 — تحسينات UI/UX MCP — جاهزة للمعاينة)
+- ✅ **نسخة v4 أُنشئت** في `versions/v4-2026-09-15/` (نسخة كاملة من v3 الحالية + تحسينات).
+- ✅ **التحسينات المطبقة** (معايير uiux-pro + shadcn + magic-ui): توكنز نظامية (4px/radius/elevation/z-index/motion) + شريط تقدم القراءة أعلى الصفحة + **توست بدل alert** في نموذج التواصل (رسالة عربية/إنجليزية حسب اللغة) + `:focus-visible` (WCAG 2.4.7) + `prefers-reduced-motion` (WCAG 2.3.3) + رفع بطاقات glass عند hover + ضغط أزرار عند النقر.
+- ✅ **مُختبَر في المتصفح** (عبر خادم محلي 8770): شريط التقدم يعمل (53.97% عند منتصف الصفحة) + التوست يظهر بأنيميشن toastIn + توازن 14/14 قسم + 0 أخطاء JS + 207 زوج ترجمة سليم.
+- ✅ VERSIONS.md حُدّث (سجل v4 + خطوات التفعيل) + DECISIONS.md (قرار v4 معلّق على موافقة المستخدم).
+- ⬜ **بانتظار المستخدم**: معاينة v4 والموافقة → ثم: انسخ v4 → الجذر → فحص أمني (قاعدة 13) → push → تحقق حي.
+
 ## Section 2026-09-13 (Subagents + LOCAL-ONLY protection — DONE)
 - ✅ **Multi-project management from ONE chat confirmed**: direct paths + parallel subagents + opencode-delegate + reading any project's memory files. Limit: 2-3 parallel agents max (free provider 429 risk at 4+).
 - ✅ **Custom subagents added to global config** (`~/.config/opencode/opencode.jsonc`, braces 177/177 verified): `arabic` (opencode/mimo-v2.5-free — best Arabic), `coder` (opencode/nemotron-3-ultra-free — heavy analysis), `fast` (opencode/ling-3.0-flash-fin-free — light checks). Each agent = own model.
@@ -24,12 +54,12 @@
 - ✅ **Smart reply logic** (`D:\ai\supervisor\supervisor_bot.py`): project detection ANYWHERE in sentence via `_match_project` (priority: first word, then multi-word phrases, then word-token match) + `PROJECT_SYNONYMS` (بورتفوليو/وينر/ذكاء الاعمال/الدماغ الثاني... for all 6 projects) + `_strip_project` + `_smart_reply` (المشاريع/النماذج/المهام/مرحبا/شكراً natural commands, no slash needed). **11/11 unit tests PASS locally + user tested from phone: "كل شيء يعمل"**.
 - ✅ **Voice handler upgraded**: same smart detection (previously first-word-only — "اعرض هيكل المشروع في portfolio" would have failed).
 - ✅ **Auto-start on logon**: `%APPDATA%\...\Startup\start_bots.vbs` starts supervisor_bot.py + portfolio bot/bot.py hidden with Win32_Process duplicate-guard (schtasks failed: Access denied without admin).
-- ✅ Supervisor bot running as ONE clean instance (PID 2468), current token `8703195403:AAF3Js3T...` (getMe OK, test msg msg_id=45 delivered).
+- ✅ Supervisor bot running as ONE clean instance (PID 2468), current token `[REDACTED]` (getMe OK, test msg msg_id=45 delivered).
 - ✅ Help text fixed: default model now shows mimo (was outdated qwen3:8b).
 
 ## Section 2026-09-13 (v3 DEPLOYED — LIVE on GitHub Pages ✅)
 - ✅ **Security scan (rule 13) passed**: git status clean-except-expected; rg scan of tracked files = 0 secrets; bot/.py reads token from env; .gitignore hardened (added versions/v1-2026-09-13-backup/ + assistant.exe).
-- ✅ **CRITICAL security finding handled**: old token `8963442423:AAH5QySc...` was in git history (api/telegram.js commit 73d1949) **but is now REVOKED/401** (rotated long ago) — no live risk. Current site-bot token (`bot/.env` = `...AAFyhoVw...`) was **never** in git history. **User actually rotated the SUPERVISOR bot** (`@mahmoudoc26_bot`) — new token `8703195403:AAF3Js3T...` verified (getMe OK) → saved to `supervisor/.env` → bot restarted (PID 3008) → delivered test message to user (msg_id=45). Old supervisor token was 401 (revoked).
+- ✅ **CRITICAL security finding handled**: old token `[REDACTED]` was in git history (api/telegram.js commit 73d1949) **but is now REVOKED/401** (rotated long ago) — no live risk. Current site-bot token (`bot/.env` = `[REDACTED]`) was **never** in git history. **User actually rotated the SUPERVISOR bot** (`@mahmoudoc26_bot`) — new token `[REDACTED]` verified (getMe OK) → saved to `supervisor/.env` → bot restarted (PID 3008) → delivered test message to user (msg_id=45). Old supervisor token was 401 (revoked).
 - ✅ **Pushed**: commit `30d4994` → `origin/main` (winner-dev repo, 7 files: portfolio.html, docs/RESPONSIVE-TESTING.md, memory files, bot/bot.py admin alerts, .gitignore).
 - ✅ **LIVE VERIFIED**: `https://mahmoudrabeh-85.github.io/winner-dev/` → HTTP 200 redirects to `/portfolio.html` → live copy = 102k chars, contains `responsive-fix` + media-768 CSS + QR asset (HTTP 200 on assets) + `mahmoudagent26_bot` form link. **Deploy #8 COMPLETE** (GitHub Pages was already enabled — no Vercel/Cloudflare needed).
 - ⬜ Optional later: clean git history (old dead token text from api/telegram.js) — cosmetic only, token is 401.

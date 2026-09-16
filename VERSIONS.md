@@ -32,7 +32,8 @@
 |---|---|---|---|---|
 | **v1** | 2026-09-08 | تصميم حالي (Tailwind محلي) | ✅ الحالي/النشط | 14 قسماً، داكن ذهبي، نظام لغتين (RTL/LTR)، أيقونات تواصل يسار، QR badge |
 | **v2** | 2026-09-10 | Google Stitch (تجربة أولى) | 📦 مراجعة — استُبدل بـ v3 | 14 قسماً، Obsidian+Gold، نظام لغتين، QR modal، Tailwind CDN — صور Google مؤقتة |
-| **v3** | 2026-09-10 | Google Stitch (تجربة ثانية + تعديلات) | ⭐ مرشح للترقية | v2 + حركات متقدمة (spotlight/scroll reveal/عدادات) + **صور محلية 100%** + **بوت تيليجرام للاستشارات** |
+| **v3** | 2026-09-10 | Google Stitch (تجربة ثانية + تعديلات) | ⭐ النشط (من 2026-09-13) | v2 + حركات متقدمة (spotlight/scroll reveal/عدادات) + **صور محلية 100%** + **بوت تيليجرام للاستشارات** + responsive-fix (مقبول من المستخدم) |
+| **v4** | 2026-09-15 | تحسينات UI/UX MCP (uiux-pro + shadcn + magic-ui) | 📦 مرشح للترقية — **بانتظار موافقة المستخدم** | v3 + **تصميم توكنز نظامي** (4px scale/elevation/z-index) + **شريط تقدم القراءة** + **توست بدل alert** في نموذج التواصل + **focus-visible** (WCAG) + **prefers-reduced-motion** + رفع بطاقات عند التمرير + ضغط زر عند النقر |
 
 ---
 
@@ -75,7 +76,7 @@
 
 ```
 versions/
-├── v1-2026-09-08/          ← التصميم الحالي (النشط)
+├── v1-2026-09-08/          ← التصميم الأول (أرشيف)
 │   ├── portfolio.html
 │   ├── css/ (style.css)
 │   ├── js/ (app.js)
@@ -83,9 +84,18 @@ versions/
 │   ├── jpg.png
 │   └── favicon.svg + robots + sitemap + _headers
 │
-└── v2-2026-09-10/          ← التصميم الجديد (من Stitch)
-    ├── portfolio.html       ← الكود الكامل (مكتفٍ ذاتياً)
-    ├── preview.png          ← معاينة التصميم
+├── v2-2026-09-10/          ← التصميم الجديد (من Stitch)
+│   ├── portfolio.html       ← الكود الكامل (مكتفٍ ذاتياً)
+│   ├── preview.png          ← معاينة التصميم
+│   └── favicon.svg + robots + sitemap + _headers
+│
+├── v3-2026-09-10/          ← النسخة النشطة حالياً (مفعّلة 2026-09-13)
+│   ├── portfolio.html + index.html + assets/ + jpg.png
+│   └── favicon.svg + robots + sitemap + _headers
+│
+└── v4-2026-09-15/          ← تحسينات UI/UX MCP (بانتظار الموافقة — جديدة)
+    ├── portfolio.html       ← v3 + توكنز + شريط تقدم + توست + وصولية
+    ├── assets/ + jpg.png
     └── favicon.svg + robots + sitemap + _headers
 ```
 
@@ -93,9 +103,11 @@ versions/
 
 ## ⏭ الخطوة التالية
 
-- [ ] مراجعة v2 (افتح portfolio.html في مجلد v2 محلياً)
-- [ ] قرار: هل يكون v2 هو النسخة النشطة؟
-- [ ] إن كان نعم: انسخ `versions/v2-2026-09-10/portfolio.html` → الجذر وارفع GitHub
+- [x] مراجعة v2 (استُبدل بـ v3)
+- [x] تفعيل v3 (responsive-fix + مقبول من المستخدم)
+- [ ] **مراجعة v4** — افتح `versions/v4-2026-09-15/portfolio.html` (أو عبر الخادم المحلي) وقرر:
+      - ما هي التحسينات الجديدة: توست بدل alert، شريط تقدم القراءة، focus-visible، رفع بطاقات عند hover
+- [ ] إن رضيت: انسخ `versions/v4-2026-09-15/portfolio.html` → الجذر ارتفع GitHub (بعد الفحص الأمني)
 - [ ] تسجيل القرار في DECISIONS.md
 
-*آخر تحديث: 2026-09-10*
+*آخر تحديث: 2026-09-15*

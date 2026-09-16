@@ -1,5 +1,38 @@
 # NEXT STEPS
 
+## Today (2026-09-16) — داشبورد job-hunt + تحسين سرعة الإقلاع — RESTART opencode ⭐
+- ✅ **داشبورد موحد** `D:\ai\job-hunt\dashboard.html` — صفحة واحدة بـ 4 تبويبات (المحلل الذكي + تحليل الوظائف + SWOT + 130 وظيفة) via iframes + lazy loading. خادم ثابت على 8768 لخدمة ملفات data/.
+- ✅ **صفحة إعدادات** `D:\ai\job-hunt\setup.html` — تظهر قبل النتائج: تحميل CV + LinkedIn + اختيار 8 مصادر + نوع العمل + 7 أسئلة تصفية + 4 deal breakers. تُحفظ في localStorage → dashboard.
+- ✅ **تعطيل 5 خوادم MCP** (context7 + github + mcp-ui + magic-ui + shadcn-ui) → يبقى 3 (playwright + chrome-devtools + uiux-pro). قُتلت 12 عملية زومبي. GITHUB_TOKEN موجود فعلاً في env.
+- ✅ **إصلاح الداشبورد** — إزالة `src=""` من iframes (كان يسبب تحميل الصفحة نفسها بدلاً من البيانات). كل 4 التبويبات تعمل الآن.
+- ✅ **API تصفية جديد** `/api/search` — يقبل: source, work_type, min_score, q, skills, location, limit. أُضيف try/except + `dict(j)` لتحويل sqlite3.Row.
+- ✅ **صفحة فلتر ذكية** `setup.html` — تحوّلت من صفحة إعدادات إلى فلتر + نتائج مباشرة (150 وظيفة مطابقة). أزرار تصنيف + بحث نصي + رابط العودة للداشبورد.
+- ⬜ **أعد تشغيل opencode الآن** لتطبيق تعطيل MCP وتحسين الإقلاع.
+- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator. شهادة Oracle SCM (3-6 أشهر). تنظيف ذاكرة completed projects.
+
+## Today (2026-09-15) — أدوات التصميم جاهزة — RESTART opencode ⭐
+- ✅ **14 مهارة تصميم** مثبتة في `C:\Users\RTX\.config\opencode\skills\selected\` (585KB) عبر `skills.paths` (9 من Google Stitch الرسمي + 5 Anti-slop).
+- ✅ **MCP chrome-devtools (52K⭐) مُفعّل** + **ملف مرجعي** `C:\Users\RTX\.config\opencode\DESIGN-REFERENCES.md` في instructions.
+- ✅ التحقق: 188/188 قوساً + `opencode run` ردّ "تمام".
+- ⬜ **أعد تشغيل opencode الآن** لتحميل المهارات و MCP الجديد → ثم جربها: "صمم كارت خدمة بمعايير frontend-design".
+- ⬜ **بانتظار المستخدم**: تفعيل Stitch MCP (`npx @_davideast/stitch-mcp init` — 10-15 دقيقة، يحتاج حساب Google Cloud).
+- ⬜ **بانتظار المستخدم**: معاينة v4 والموافقة → انسخ → الجذر + فحص أمني → push.
+
+## Today (2026-09-15/16) — MCP/UI-UX على المشاريع المنفذة — جاري الإغلاق
+- ✅ **داشبورد المشاريع** (`D:\ai\tools\dashboard\generate_dashboard.py`) — يقرأ ملفات الذاكرة + فحص حي → dashboard.html بتصميم Industrial. 134 منجز، 53 معلّق، 4 نشطة.
+- ✅ **CLI Launcher موحّد** — `cli_launcher.html` بهوية Industrial + dashboard card (22 أداة، 21/22 مثبتة).
+- ✅ **job-hunt index.html** — تدقيق WCAG: `:focus-visible` + `prefers-reduced-motion` + back-to-top + modal scroll fix. أقواس 194/194.
+- ⬜ **أعد تشغيل opencode الآن** لتحميل الـ 14 مهارة + chrome-devtools MCP.
+- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator + شهادة Oracle SCM + تنظيف ذاكرة completed projects.
+
+## Today (2026-09-15) — CLI Launcher v2: كل أداة بمجلدها + واجهة منفصلة (انتهت)
+- ✅ **النقل**: كل ملفات الـ Launcher انتقلت من `D:\ai\portfolio\tools\` → **`D:\ai\tools\`** (أدوات النظام لا تنتمي لريبو الموقع العام) — `start_bots.vbs` حُدّث + الخادم يعمل من الموقع الجديد.
+- ✅ **v2**: كل أداة لها **مجلدها الخاص** `D:\ai\tools\apps\<id>\app.json` (21 أداة) + **واجهة HTML مستقلة** `/app/<id>` (أوامر سريعة + تنفيذ بتقاط الناتج `/exec` + فتح طرفية `/run`).
+- ✅ **مولّد مركزي**: `D:\ai\tools\make_apps.py` — إضافة أداة = مجلد + JSON فقط.
+- ✅ **تحسينات**: أوامر `start` تعود فوراً + فحص Rust عبر `rustc` → كلها 21/21 مثبتة. مُختبَر بصرياً في المتصفح ✅
+- ⬜ **المستخدم**: يكمل بروفايل LinkedIn (الخطوات 2-7 — 20 دقيقة) ثم ينشر المنشورات 10.
+- ⬜ **المستخدم**: يراجع تقرير الوظائف ويرسل أفضل 3-5 وظائف يتقدم لها.
+
 ## Today (2026-09-13) — Subagents + memory updated, RESTART opencode
 - ✅ **RESTART opencode now** to load the 3 new custom subagents (arabic/coder/fast) + GitHub MCP.
 - ✅ After restart, test parallel agents: "أطلق coder و arabic في مهمتين متوازيتين".

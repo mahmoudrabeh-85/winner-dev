@@ -1,0 +1,84 @@
+/*
+  # Security Headers for Cloudflare Pages
+  # https://developers.cloudflare.com/pages/configuration/headers/
+
+  # --- Content Security Policy ---
+  # Explained domains:
+  #   - 'self'             : This site's own assets (css/, js/, images)
+  #   - fonts.googleapis.com: Google Fonts CSS
+  #   - fonts.gstatic.com  : Google Fonts font files
+  #   - formspree.io       : Contact form submission service
+  #   - wa.me               : WhatsApp click-to-chat links
+  #   - calendly.com        : Calendly booking embed
+  #   - linkedin.com        : LinkedIn profile links
+  #   - upwork.com          : Upwork profile links
+  # `unsafe-inline` is required by the existing HTML, which uses inline style attributes.
+  # It must be removed only after those styles have been externalized.
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; media-src 'self'; worker-src 'none'; connect-src 'self' https://formspree.io; frame-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests
+
+  # --- Strict Transport Security ---
+  # Force HTTPS for 1 year. Enable preload only after the custom domain is live
+  # and every current/future subdomain is confirmed HTTPS-only.
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+  # --- Prevent MIME type sniffing ---
+  X-Content-Type-Options: nosniff
+
+  # --- Referrer Policy ---
+  # Send origin only on cross-origin requests, full URL on same-origin
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # --- Permissions Policy ---
+  # Disable features not needed for a portfolio site
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()
+
+  # --- Cross-Origin Opener Policy ---
+  # Isolates this browsing context from cross-origin popups
+  Cross-Origin-Opener-Policy: same-origin
+
+  # --- Cross-Origin Resource Policy ---
+  # Only allow this origin to load our resources (blocks cross-origin reads)
+  # --- X-Frame-Options (legacy browsers) ---
+  # CSP frame-ancestors 'none' handles modern browsers; this covers older ones
+  X-Frame-Options: DENY
+
+# --- HTML pages: no caching (always fresh) ---
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# --- Static assets: long cache (fingerprinted or versioned) ---
+/*.css
+  Cache-Control: public, max-age=3600
+
+/*.js
+  Cache-Control: public, max-age=3600
+
+/*.png
+  Cache-Control: public, max-age=3600
+
+/*.jpg
+  Cache-Control: public, max-age=3600
+
+/*.jpeg
+  Cache-Control: public, max-age=3600
+
+/*.gif
+  Cache-Control: public, max-age=3600
+
+/*.svg
+  Cache-Control: public, max-age=3600
+
+/*.ico
+  Cache-Control: public, max-age=3600
+
+/*.woff
+  Cache-Control: public, max-age=3600
+
+/*.woff2
+  Cache-Control: public, max-age=3600
+
+# --- Custom 404 page ---
+/404.html
+  Cache-Control: no-cache

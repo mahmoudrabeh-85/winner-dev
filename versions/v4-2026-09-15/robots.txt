@@ -1,0 +1,5 @@
+# robots.txt - https://mahmoudrabeh-85.github.io/winner-dev/
+User-agent: *
+Allow: /
+
+Sitemap: https://mahmoudrabeh-85.github.io/winner-dev/sitemap.xml
