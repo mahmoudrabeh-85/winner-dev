@@ -1,17 +1,31 @@
 # PROGRESS
 
+## Section 2026-09-16 (5 مهام: سرعة + مهارات + Stitch + v4 + شهادة — DONE)
+- ✅ **السرعة**: `npx --no-install --help` أثبت الـ cache دافئاً (playwright 6s + chrome-devtools 6s + uiux-pro 3s = ~15s أرضية لـ 3 خوادم محلية). الباقي من الـ 60s هو opencode نفسه. firecrawl/composio البعيدان = صفر عمليات جديدة (21 node ثابتة).
+- ✅ **إزالة Oracle/ERP من المهارات**: حُذفت من `job_aggregator.py` + `smart_scorer.py` + KEYWORDS + وسوم setup.html (43 → 38 مهارة). التحقق: `COMPILE OK` + البروفايل يعرض 38 مهارة.
+- ✅ **سؤال كارت GCP**: بحث رسمي — التسجيل يشترط كارت (تحقق هوية فقط) + 300$ رصيد 90 يوم + **لا سحب إلا بترقية يدوية**. التوصية: إبقاء Stitch معطلاً (احتياجات التصميم مغطاة).
+- ✅ **معاينة v4**: خادم 8771 + Playwright — العنوان سليم + 0 أخطاء console + لقطة شاشة مأخوذة. بانتظار موافقة المستخدم للتفعيل.
+- ✅ **شهادة Oracle SCM أُلغيت مؤقتاً**: حُدّثت كل الإشارات في portfolio + job-hunt (NEXT_STEPS/DECISIONS/PROGRESS).
+- ⬜ المستخدم: إعادة تشغيل opencode + `opencode mcp auth composio` + الموافقة على v4.
+
+## Section 2026-09-16 (تثبيت Firecrawl MCP + Composio — DONE)
+- ✅ **بحث ويب موثق**: Firecrawl الرسمي `firecrawl/firecrawl-mcp-server` (7,413⭐ — `npx -y firecrawl-mcp` + `FIRECRAWL_API_KEY`) + طبقة مستضافة بلا مفتاح `https://mcp.firecrawl.dev/v2/mcp`؛ Composio عبر `https://connect.composio.dev/mcp` + مصادقة `opencode mcp auth composio`.
+- ✅ **التثبيت**: خادمان بعيدان (remote) في `opencode.jsonc` — `firecrawl` + `composio` (مفعّلان). لا عمليات node جديدة. التحقق: JSONC سليم (12 خادماً — 5 مفعّلة) + الوصول حي (405/401 كما هو متوقع).
+- ✅ ملف `customize-opencode` skill حُمّل قبل التعديل (حسب القاعدة) + DECISIONS.md/NEXT_STEPS.md/LEARNING.md حُدّثت.
+- ⬜ المستخدم: إعادة تشغيل opencode + `opencode mcp auth composio` + مفتاح Firecrawl اختياري لاحقاً.
+
 ## Section 2026-09-16 (إصلاح الداشبورد + صفحة فلتر ذكية — DONE)
 - ✅ **إصلاح قاتل في الداشبورد**: `dashboard.html` — الـ iframes كانت تشير لنفسها (`src=""` → المتصفح يفسّره كعنوان الصفحة الحالية). **الحل:** إزالة `src=""` بالكامل والاستخدام فقط `data-src` مع تعيين `src` عند النقر (lazy loading). كل 4 التبويبات تعمل الآن ✅.
 - ✅ **API تصفية جديد**: أُضيف `/api/search` في `job_app.py` — يقبل: source, work_type, min_score, q (بحث نصي), skills, location, limit. يُرجع وظائف مع تحليل CV. **إضافة حاسمة:** `dict(j)` لتحويل `sqlite3.Row` → dict (كان يسبب 500 error).
 - ✅ **صفحة فلتر ذكية** `setup.html`: بدل صفحة إعدادات تحوّلت لصفحة فلتر + نتائج مباشرة — حقل بحث نصي + بطاقات مصادر قابلة للتحديد + فلترة حسب المصدر ونوع العمل + عرض النتائج في الوقت الحقيقي (AJAX) + أزرار تصنيف (الكل/عالٍ/متوسط/منخفض) + رابط العودة للداشبورد. **مُختبَر**: 150 وظيفة مطابقة تظهر ✅.
-- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator. شهادة Oracle SCM (3-6 أشهر). تنظيف ذاكرة completed projects.
+- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator. شهادة Oracle SCM (ملغاة مؤقتاً — 2026-09-16). تنظيف ذاكرة completed projects.
 
 ## Section 2026-09-15/16 (MCP/UI-UX على المشاريع المنفذة — جاري الإغلاق)
 - ✅ **داشبورد المشاريع (Command Center)**: `D:\ai\tools\dashboard\generate_dashboard.py` يقرأ 10 مشاريع + ملفات الذاكرة (استخراج ✅/⬜ تلقائي + أوقات متوقعة) + فحص حي (HTTP 200 / عمليات Python / منافذ). Dashboard v1: 134 منجز، 53 معلّق، 4 نشطة. **مُختبَر**: خادم 8800 + Playwright DOM (10 بطاقات، portfolio 76%， job-hunt 73%， الموقع 200 OK ✅， بايثون يعمل 4 عمليات ✅).
 - ✅ **CLI Launcher موحّد بالهوية الموحدة**: `D:\ai\tools\cli_launcher.html` — مرساة **Industrial** (أسود `#0B0C0A` + mono + حدود 1px + acid `#C6FF4A`) مع توكنز uiux-pro. بطاقة dashboard مُضافة. **مُختبَر**: 22 أداة، 21/22 مثبتة ✅.
 - ✅ **job-hunt index.html تدقيق WCAG**: أُضيف `:focus-visible` (WCAG 2.4.7) + `@media (prefers-reduced-motion: reduce)` (WCAG 2.3.3) + زر back-to-top + `modal.scrollTop=0` عند الفتح. الأقواس: 194/194. **مُختبَر**: 142 وظيفة محمّلة، مودال ring يعمل ✅.
 - ✅ **نظام تصميم موحّد**: مرساة Industrial (frontend-design skill) + لوحة uiux-pro (`#440154/#21918C/#FDE725/#1A1A2E/#F5F5F5`) — مستخدمة في Dashboard + Launcher. job-hunt تحتفظ بتوكنزها الخاصة (مطابقة أصلاً).
-- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator. شهادة Oracle SCM (3-6 أشهر). تنظيف ذاكرة completed projects.
+- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator. شهادة Oracle SCM (ملغاة مؤقتاً — 2026-09-16). تنظيف ذاكرة completed projects.
 
 ## Section 2026-09-15 (Search: Design/Frontend MCPs + Google Stitch + Skills — DONE)
 - ✅ **بحث توثيقي عبر GitHub API**: أفضل 10 MCP تصميم/فرونت إند = chrome-devtools (52,051⭐) / playwright (37,144⭐) / Figma-Context (15,864⭐) / magic-mcp (5,871⭐) / executeautomation (5,644⭐) / design-extract (4,101⭐) / shadcn-ui (2,991⭐) / fetcher-mcp (1,085⭐) / penpot (503⭐) / better-design (233⭐) — الأرقام فعلية اليوم.
