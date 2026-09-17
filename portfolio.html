@@ -258,6 +258,37 @@
       #langToggle { font-size: 0.625rem; padding: 0.25rem 0.5rem; }
     }
   </style>
+<!-- ========== UI/UX v4 (2026-09-15) — uiux-pro + shadcn + magic-ui standards ========== -->
+<style data-purpose="uiux-v4">
+    /* Design tokens: 4px spacing scale + radius + elevation + z-index + motion */
+    :root{
+      --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;
+      --rd-sm:6px;--rd-md:10px;--rd-lg:14px;--rd-xl:20px;--rd-full:999px;
+      --sh-sm:0 1px 3px rgba(0,0,0,.3);--sh-md:0 8px 24px rgba(0,0,0,.45);--sh-lg:0 20px 50px rgba(0,0,0,.6);
+      --z-hdr:40;--z-modal:100;--z-toast:110;
+      --dur-fast:.15s;--dur-med:.3s;--dur-slow:.5s;--ease:cubic-bezier(.4,0,.2,1);
+    }
+    /* Accessible focus ring (WCAG 2.4.7 Focus Visible) */
+    :focus-visible{outline:2px solid #FDE047;outline-offset:3px;border-radius:4px}
+    /* Respect prefers-reduced-motion (WCAG 2.3.3) */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    }
+    /* Card lift + subtle gold glow on hover (consistent micro-interaction) */
+    .glass-panel{transform:translateY(0);will-change:transform}
+    .glass-panel:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(212,168,67,.12),var(--sh-md)}
+    /* Button/social press feedback */
+    button:active,a:active{transform:scale(.97)}
+    /* Scroll progress bar (magic-ui style) */
+    .scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#FDE047,#D4A843);z-index:var(--z-toast);box-shadow:0 0 12px rgba(212,168,67,.6);transition:width .1s linear}
+    /* Toast (shadcn style — replaces alert) */
+    .toast-container{position:fixed;bottom:var(--sp-6);right:50%;transform:translateX(50%);z-index:var(--z-toast);display:flex;flex-direction:column;gap:var(--sp-2);align-items:center;pointer-events:none}
+    .toast{display:flex;align-items:center;gap:var(--sp-2);background:#171E2D;border:1px solid rgba(212,168,67,.5);color:#F3F4F6;padding:var(--sp-3) var(--sp-6);border-radius:var(--rd-full);font-size:.85rem;box-shadow:var(--sh-lg);pointer-events:auto;animation:toastIn var(--dur-med) var(--ease)}
+    .toast svg{width:18px;height:18px;flex-shrink:0}
+    .toast.out{animation:toastOut var(--dur-med) var(--ease) forwards}
+    @keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes toastOut{to{opacity:0;transform:translateY(12px) scale(.95)}}
+  </style>
 </head>
 <body class="bg-obsidian-900 text-gray-100 antialiased selection:bg-gold-500 selection:text-obsidian-950">
 <!-- BEGIN: StickyNavigation -->
@@ -1232,11 +1263,9 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     + 'Email: ' + email + String.fromCharCode(10)
     + 'Field: ' + field + String.fromCharCode(10)
     + 'Details: ' + details;
-  window.open('https://t.me/mahmoudagent26_bot?text=' + encodeURIComponent(msg), '_blank');
+window.open('https://t.me/mahmoudagent26_bot?text=' + encodeURIComponent(msg), '_blank');
   var isAr = document.documentElement.dir === 'rtl';
-  alert(isAr
-    ? String.fromCharCode(1578,1605,32,1601,1578,1581,32,1578,1610,1604,1610,1580,1585,1575,1605,46,32,1571,1585,1587,1604,32,1575,1604,1585,1587,1575,1604,1577,32,1604,1573,1578,1605,1575,1605,32,1575,1604,1591,1604,1576,46)
-    : 'Done! Telegram is opening. Send the message to complete.');
+  window.toast(isAr ? 'تم تجهيز الطلب — افتح تيليجرام وأرسل الرسالة لإتمام الإرسال.' : 'Done! Telegram is opening — send the message to complete.');
 });
 </script>
 
@@ -1410,5 +1439,45 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15 });
 
   revealElements.forEach(el => revealObserver.observe(el));
+});
+</script>
+<!-- ========== UI/UX v4 JS (2026-09-15) ========== -->
+<script data-purpose="uiux-v4-js">
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Scroll progress bar (magic-ui style)
+  const bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  bar.setAttribute('aria-hidden', 'true');
+  document.body.prepend(bar);
+  const updateProgress = () => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    bar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + '%';
+  };
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+
+  // 2. Toast system (shadcn style — replaces alert)
+  window.toast = function (msg, type) {
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'toast-container';
+      document.body.appendChild(container);
+    }
+    const t = document.createElement('div');
+    t.className = 'toast';
+    const ok = type !== 'err';
+    const icon = ok
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    t.innerHTML = icon + '<span>' + msg + '</span>';
+    container.appendChild(t);
+    setTimeout(() => {
+      t.classList.add('out');
+      setTimeout(() => t.remove(), 320);
+    }, 2600);
+  };
 });
 </script></body></html>
