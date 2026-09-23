@@ -1,10 +1,10 @@
 {
   "bot_name": "Rabeh Consultant",
-  "bot_name_ar": "مساعد محمود رباح",
-  "welcome_ar": "مرحباً بك! 👋\nأنا مساعد محمود رباح — مستشار مشتريات وسلاسل إمداد.\n\nكيف يمكنني مساعدتك اليوم؟",
+  "bot_name_ar": "مساعد محمود رابح",
+  "welcome_ar": "مرحباً بك! 👋\nأنا مساعد محمود رابح — مستشار مشتريات وسلاسل إمداد.\n\nكيف يمكنني مساعدتك اليوم؟",
   "welcome_en": "Welcome! 👋\nI'm Mahmoud Rabeh's assistant — Procurement & Supply Chain Consultant.\n\nHow can I help you today?",
   "owner_chat_id": "184519943",
-  "owner_name": "محمود رباح",
+  "owner_name": "محمود رابح",
 
   "services": [
     {

@@ -1,9 +1,43 @@
 # PROGRESS
 
-## Section 2026-09-17 (تفعيل v4 — LIVE)
+## Section 2026-09-22 (إصلاح CSP وانكسار التنسيق على Worker + نشر ناجح + فحص أمني)
+- ✅ **السبب الجذري لتنسيق المكسور على Worker/Pages**: ملف `_headers` فيه CSP قديم `script-src 'self'` كان يمنع `https://cdn.tailwindcss.com` (محرك التنسيق الوحيد للـ site — لا css محلي أصلاً) + 7 كتل `<script>` داخلية (تبديل اللغة/FAQ/QR/Form). GitHub Pages يتجاهل `_headers` → سليم؛ Workers وPages يطبّقونه → صفحة مكسورة. `vercel.json` بلا CSP → Vercel سليم.
+- ✅ **الإصلاح**: `_headers` ← `script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com` + تعليقات محدّثة.
+- ✅ **مصادقة wrangler**: OAuth ناجح (الحساب mahmoudrabeh@gmail.com — Account ID `c9a5a48345cd9fa5f7d168400e495c66`) — الاعتماد محفوظ في `C:\Users\RTX\AppData\Roaming\xdg.config\.wrangler\config\default.toml` (ليس `~/.wrangler`!). النشر الآن = `npx wrangler deploy` من جذر الريبو.
+- ✅ **النشر** (بعد محاولتين فاشلتين): (1) `Asset too large` — كائن `.git/lfs` 461MB → أُضيف `.git` لـ `.assetsignore`. (2) `UND_ERR_HEADERS_TIMEOUT` — لقطات job-hunt 3×~10MB (30MB من 32.8) تُرفع base64 → أُضيفت `job-hunt-before*.png` و `uiux_demo*.png` و `jpg.png` للاستثناءات → 13 ملفاً فقط ~200KB → نجح في 16 ثانية.
+- ⚠️ **اكتشاف مهم**: `wrangler.jsonc` كانت `name: portfolio` بينما رابطك الحي `mahmoudrabeh.mahmoud-rabeh.workers.dev` → نُشر على Worker خاطئ أولاً، ثم صُحّح الاسم إلى `mahmoudrabeh` وأُعيد النشر → **الحي الآن بالـ CSP الجديد** (Version `884df74a`).
+- ✅ **فحص أمني حي**: `/.git/config` و `/bot/bot.py` و `/bot/.env` كلها **404** بعد النشر (كانت `.git` و `bot.py` مكشوفتين 200 قبل الإصلاح!). التوكن لم يُكشف أبداً (404 دائماً).
+- ✅ **التحقق البصري التقني** (chrome-devtools DOM): Tailwind محمّل ✅ + 7 inline scripts تعمل + 14 قسماً + زر لغة + خلفية داكنة `rgb(11,15,23)` + **صفر أخطاء CSP** في الكونسول (404 المتبقيان = موارد قديمة غير مرتبطة بـ CSP).
+- ⬜ Push للـ repo (فحص أمني + "go" من المستخدم — مُعلّق). Worker إضافي `portfolio.mahmoud-rabeh.workers.dev` موجود (نسخة مكررة بالإصلاح) — يُحذف لاحقاً إن رغبت.
+
+## Section 2026-09-18 (بوت المراقب: تلخيص فيديو + بحث متقدم + مساعد شخصي + LinkedIn)
+- ✅ **LinkedIn متصل عبر Composio ومؤكد**: الحساب `linkedin_pargo-matral` (alias personal) نشط — `mahmoud rabeh` (mah4allah@gmail.com)، العنوان: purchasing Manager | Pharmaceutical Trading & Distribution | 18 Yrs Cost Reduction Expert، الرابط person: linkedin.com/in/mahmoud-rabeh-7102071a3. أدوات النشر جاهزة.
+- ✅ **تلخيص الفيديو في البوت**: كشف تلقائي لروابط (يوتيوب/فيميو/تيك توك/فيسبوك/انستغرام) في `handle_any_text` قبل كل شيء → رد فوري «🎬 ⏳ جاري التحميل والتلخيص...» → `_summarize_video_sync` ينفّذ vidscribe (backend native = faster-whisper محلي بلا Docker + `NATIVE_DEVICE=cpu` + OpenRouter `OPENAI_API_BASE` + موديل `inclusionai/ling-3.0-flash-fin:free` + `PYTHONIOENCODING=utf-8`) → إرسال الملخص (حتى 3900 حرف) أو رسالة فشل إرشادية. مجلد المخرجات `video_summaries/`.
+- ✅ **بحث متقدم `/search`**: DuckDuckGo Instant Answer API (مجاني بلا مفتاح — urllib/urlopen) → النتائج منظمة، حتى 6 نتائج (ملخص + RelatedTopics)، مهلة 30s.
+- ✅ **مساعد شخصي `/assist`**: ملف `profile.json` (الاسم/المسمى/المهارات/أهداف مهنية ومالية/ملاحظات) + أوامر: `/assist` (عرض الملف)، `/assist skill <مهارة>`، `/assist goal-prof <هدف>`، `/assist goal-fin <هدف>`، `/assist note <ملاحظة>`، وأي سؤال آخر → يبني سياقاً من الملف ثم `_ai_chat_sync` (mimo، مهلة 60s) → إجابة عملية مرقمة بالعربية مبنية على المهارات والأهداف.
+- ✅ **التحقق**: `COMPILE OK` + إعادة تشغيل نظيفة (قتل 14644 → تشغيل 23160) — **درس:** قتل يدوي + تشغيل سريع → watchdog يطلق نسخة ثانية خلال 60s → `telegram.error.Conflict` — الحل: اقتل الزائدة فوراً وأبقِ نسخة واحدة.
+- ⬜ **اختبار من الهاتف**: أرسل رابط فيديو يوتيوب حقيقياً + جرّب /search و /assist.
+
+## Section 2026-09-18 (جولة الإصلاح: البوت + Docker + وكلاء مساعدون + LinkedIn)
+- ✅ **البوت أُصلح من الصمت**: السبب = الرد العام كان يعتمد على `opencode run` بمهلة 90 ثانية بلا أي تأكيد فوري → المستخدم يظن البوت ميتاً. **الحل:** رد «⏳ جاري التفكير...» فوراً + خفض المهلة إلى 45 + تسجيل كل رسالة واردة (`Incoming msg:`) + تسجيل stdout/stderr عند الفشل. **أُعيد تشغيله** (Application started ✅) واختبار مسار النموذج حي («تمام») — بانتظار رسالة المستخدم من الهاتف للتأكيد النهائي.
+- ✅ **وكلاء مساعدون جدد (3)** في `C:\Users\RTX\.config\opencode\agent\` بطلب المستخدم (استخدام الموديلات غير الموظفة للتفويض): `implementer` (nemotron-3-ultra-free — تنفيذ مهام طويلة) + `inspector` (ling-3.0-flash-fin-free — فحوصات سريعة) + `planner` (inkling:free — بحث وتخطيط). **درس:** حقل `tools` غير مسموح في frontmatter الوكيل → فشل `opencode run` بالكامل حتى أُزيل.
+- ✅ **AGENTS.md**: قاعدة التفويض موجودة أصلاً (implementer/inspector/planner) — الملخص مطابق. **الإعداد يتطلب إعادة تشغيل opencode.**
+- ⛔ **Docker: السبب الجذري مكتشف** — `WSL` بلا أي توزيعة مثبتة (`no installed distributions`) → محرك Linux يفشل دائماً (500 على /version). الحل من المستخدم: تشغيل PowerShell كمسؤول: `wsl --install -d Ubuntu` (يتطلب إعادة تشغيل غالباً). vidscribe يعمل بدونه عبر وضع whishper المحلي (مُختبَر سابقاً SUCCESS).
+- 🔗 **LinkedIn**: رابط المصادقة جاهز (Composio) — بانتظار نقر المستخدم. أدوات النشر متاحة بعد الربط؛ أما البحث عن وظائف فمباشر عبر `DICE_MCP`/`ZIPRECRUITER_MCP` (نشطان بلا مصادقة).
+- ⬜ **رابط الفيديو**: المستخدم قال «ارسلت» لكن لا رابط في المحادثة ولا في سجل البوت — بانتظار إعادة إرساله هنا.
+
+## Section 2026-09-18 (تحقق البوت والفيديو — جاهزان بانتظارك)
+- ✅ **البوت حي**: 3 عمليات تعمل وسجل الاستطلاع ناجح (`200 OK` متكرر) — بانتظار رسالتك من الهاتف.
+- ✅ **الفيديو**: أمر الأداة يعمل لكن خدمة الحاويات متوقفة — بانتظار تشغيلها ورابطك.
+
+## Section 2026-09-17 (مصادقة Gmail — نشطة ✅)
+- ✅ **الاتصال**: رابط أول انتهت صلاحيته → رابط ثان نجح → الحساب مؤكد نشط (`mah4allah@gmail.com`). الأدوات الجاهزة: إرسال ومسودات وردود وبحث جهات.
+- ✅ **القاعدة**: لا إرسال فوري بلا تأكيد صريح — المسار الآمن هو مسودة أولا ثم الإرسال بعد المراجعة.
+
+## Section 2026-09-17 (تفعيل v4 — LIVE ✅)
 - ✅ **التفعيل بموافقتك**: نسخة احتياطية `v3-2026-09-17-backup/` + نسخ `portfolio.html` فقط (127682 بايت) + تحقق حي (14 قسما + كل العلامات + 0 أخطاء).
 - ✅ **الفحص الأمني**: 0 توكنات + 0 مفاتيح في الفرق + `.gitignore` يحمي النسخة + السجل القديم بلا جديد.
-- ⬜ الدفع والتحقق الحي (التالي فورا).
+- ✅ **الدفع والتحقق الحي**: `b52109b` → `origin/main` + الموقع الحي يعرض v4 كاملة (كل الأقسام والنموذج والتذييل).
 
 ## Section 2026-09-17 (ترتيبك الجديد: v4 ثم مصادر ثم تسويق — DONE ما عدا التفعيل)
 - ✅ **معاينة v4**: خادم 8771 + `Playwright` — العنوان سليم + 0 أخطاء + لقطة مأخوذة. **بانتظار كلمة فعّل منك — لم أنسخ شيئا للجذر**.

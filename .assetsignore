@@ -19,3 +19,15 @@ stitch_modern_animated_portfolio_redesign
 04_Portfolio
 09_Website
 portfolio.backup.html
+.git
+.wrangler
+.playwright-mcp
+bot
+versions
+*.zip
+.env
+node_modules/
+job-hunt-before-v2.0*.png
+uiux_demo_*.png
+check_free.py
+.vercelignore

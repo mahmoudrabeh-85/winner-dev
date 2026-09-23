@@ -5,11 +5,6 @@
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID || '184519943';
 
-if (!BOT_TOKEN) {
-  // Fail fast with a clear message instead of a silent runtime error
-  throw new Error('Missing BOT_TOKEN env var — set it in Vercel dashboard.');
-}
-
 module.exports = async (req, res) => {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,6 +17,10 @@ module.exports = async (req, res) => {
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!BOT_TOKEN) {
+    return res.status(500).json({ error: 'Missing BOT_TOKEN env var — set it in Vercel dashboard.' });
   }
 
   try {

@@ -299,7 +299,7 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif data == "contact":
         text = t(lang,
-            "📞 تواصل مع محمود رباح:\n\n"
+            "📞 تواصل مع محمود رابح:\n\n"
             "📱 واتساب: +201006125478\n"
             "📱 تيليجرام: @mahmoudrabeh1\n"
             "🔗 لينكدإن: linkedin.com/in/mahmoud-rabeh-7102071a3\n"
@@ -630,7 +630,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         elif any(w in text for w in ["تواصل", "هاتف", "رقم", "واتساب", "contact", "phone", "whatsapp", "رقمك"]):
             await update.message.reply_text(
                 t(lang,
-                    "📞 تواصل مع محمود رباح:\n\n"
+                    "📞 تواصل مع محمود رابح:\n\n"
                     "📱 واتساب: +201006125478\n"
                     "📱 تيليجرام: @mahmoudrabeh1\n"
                     "🔗 لينكدإن: linkedin.com/in/mahmoud-rabeh-7102071a3\n\n"
