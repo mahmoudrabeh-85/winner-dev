@@ -1,167 +1,60 @@
 # NEXT STEPS
 
-## DONE (2026-09-22) — إصلاح CSP على Workers ⭐
-- ✅ **سبب انكسار التنسيق**: `_headers` كان يمنع Tailwind CDN + inline scripts عبر CSP قديم → أُصلح (`'unsafe-inline' https://cdn.tailwindcss.com`).
-- ✅ **مصادقة wrangler**: OAuth ناجح — `npx wrangler deploy` يعمل الآن من الجذر.
-- ✅ **النشر النهائي**: `mahmoudrabeh` (رابطك الحي) بالـ CSP الجديد — Version `884df74a` + Tailwind يعمل + صفر أخطاء CSP.
-- ✅ **الأمان**: `.git` + `bot/` أُضيفا لـ `.assetsignore` (كانا مكشوفين 200!) — الآن 404.
-- ⬜ **Push للـ repo** (مع فحص أمني + "go" منك) — الملفات المعدلة: `_headers` + `.assetsignore` + `wrangler.jsonc`.
-- ⬜ **اختياري**: حذف Worker المكرر `portfolio.mahmoud-rabeh.workers.dev` (نسخة بالإصلاح لا تستخدمها).
+> 📦 **تنبيه الأرشفة (2026-10-09، الحل 1 للكومباكت)**: المهام القديمة (من «## DONE (2026-09-23)» فصاعداً) **نُقلت بلا حذف** إلى `NEXT_STEPS-ARCHIVE.md` — أقسام NOW الحالية وقائمة التفضيلات الحية تبقى هنا.
 
-## NOW (2026-09-22) — إعادة تشغيل opencode لتفعيل Cloudflare ⭐
-- ⬜ **أعد تشغيل opencode الآن** — أُضيفت 5 خوادم MCP خاصة بـ Cloudflare (cloudflare / docs / bindings / builds / observability) + 14 مهارة Cloudflare في `~\.agents\skills\`. الإعداد لا يُحمَّل حياً.
-- ⬜ بعد إعادة التشغيل: جرّب أداة Cloudflare (مثلاً سؤال عن مستندات Workers) → OAuth ينطلق تلقائياً عند أول استخدام → افتح الرابط في المتصفح وسجّل دخول Cloudflare → تصبح الأدوات متاحة.
-- ⬜ `cloudflare-docs` متصل فوراً بلا مصادقة — يمكن اختباره مباشرة بعد إعادة التشغيل.
+## NOW (2026-10-09) — حلول الكومباكت 1-4 مطبَّقة — أعد تشغيل OpenCode ⭐
+- ✅ **الحلول الأربعة طُبِّقت فعلاً**: (1) أرشفة الذاكرة الأربعة بلا حذف + تحقق `ALL VERIFIED`، (2) `instructions` = 12 عنصراً، (3) `small_model`/`agent.arabic`/`build` ← `opencode/mimo-v2.6-flash-free`، (4) `tool_output.max_bytes = 20000`.
+- ✅ **اختبار `provider.opencode` مغلق**: إدخال فارغ `{} يدمج` مع المورد المدمج (11 موديل) والمصادقة تعمل بلا `apiKey` → **حُذف الإدخال، لا حاجة له**.
+- ✅ **أُعيد تشغيل OpenCode** (15:49) — كل التغييرات محمّلة (لا hot-reload).
+- ⬜ **بانتظار قرارك**: (أ) حذف `D:\ai\portfolio\opencode.json` (إعداد مشروع قديم، 4 أسطر)، (ب) إقفال توثيق Kali Linux (مثبّت ومكتمل — أغلقه في `PROGRESS`؟)، (ج) نشر `winner-dev` (بانتظار «go» + فحص أمني).
+- 📌 **الدروس 18-26 لم تعد في سياق LEARNING النشط** — تُقرأ من `LEARNING-ARCHIVE.md` أو `AGENT-REACH-REFERENCE.md` / `PROBLEM-SOLVING-PLAYBOOK.md`.
 
-## NOW (2026-09-18) — اختبار الميزات الجديدة من الهاتف ⭐
-- 🎬 **تلخيص الفيديو**: أرسل رابط يوتيوب/فيميو حقيقياً إلى البوت — سيرد «🎬 ⏳» فوراً ثم الملخص (1-5 دقائق). أول مرة قد تحمّل موديل faster-whisper.
-- 🔍 **/search <سؤال>**: جرّب البحث المتقدم (مثال: Gulf procurement jobs).
-- 🧠 **/assist**: جرّب المساعد الشخصي — `/assist` لعرض ملفك، `/assist skill <مهارة>` للإضافة، `/assist <سؤال>` لاستشارة.
-- 🔗 **LinkedIn منشور**: انشر أول منشور — قل «جهز منشور» وسأكتبه لك ثم أنشره عبر Composio (الحساب نشط).
-- ⚙️ **Docker (اختياري)**: `wsl --install -d Ubuntu` كمسؤول — لتفعيل حاوية vidscribe الأسرع (المحلي يعمل بلا Docker).
+## NOW (2026-10-09) — إظهار سياق كل موديل في `/models` — أعد تشغيل OpenCode ⭐
+- ✅ **طُبِّقت كل التعديلات فعلياً** في `C:\Users\RTX\.config\opencode\opencode.jsonc` — دُمج حجم السياق داخل حقل `name` لكل موديل دون تغيير أي معرّف `model` (التحقق: `VALID JSONC` + **51 موديل بـ`name` + 29 بلا `name`** — كلها مقصودة).
+- ✅ **مزامنة المرآة مُقفلة (2026-10-09)**: `SRC(normalized CR->LF) == MIR: True` — الفرق الوحيد كان CR منفردين في المصدر تحوّلا إلى LF في المرآة (الطول متطابق 124247 بايت، والمحتوى متكافئ)؛ قِسم 2026-10-09 هو الأخير في المرآة (السطر 806–822)؛ حُذفت السكربتات المؤقتة الثلاثة (`check_learning.py`، `find_cjk.py`، `verify_mirror.py`) وتأكّد غيابها.
+- ⬜ **الخطوة الوحيدة المطلوبة منك**: **أعد تشغيل OpenCode** — الإعداد يُحمَّل عند الإقلاع فقط (لا hot-reload). ستظهر عندك أمثلة: `Kimi K3 (200k)`، `nemotron-3-ultra-550b-a55b:free (1M)`، `DeepSeek V4 Flash (128k, free)`.
+- 📌 **قاعدة الصياغة المتبعة**: `ctx >= 1_000_000` → `"1M"`، وإلا `round(ctx/1000) + "k"` (262144→262k، 131072→131k، 65536→66k). المصدر: `limit.context` في الإعداد أو `openrouter.ai/api/v1/models` — **لا تخمين**.
+- ⚠️ **7 موديلات OpenRouter بلا سياق موثّق** (alias `openrouter/free` + 6 معرّفات أكد API غيابها: minimax-m3، minimax-m2.7، ling-3.0-flash-fin، ling-3.0-flash-sante، glm-5.2، deepseek-v4-flash) — **تُركت `{}`** بلا اسم التزاماً بقاعدة عدم التخمين.
+- ⚠️ **مستثناة بلا تخمين أيضاً**: `lmstudio` (4 موديلات) + `ollama/gemma4:31b-cloud` — بلا مصدر سياق موثّق فبقيت `{}`.
 
-## NOW (2026-09-18) — إجراءاتك الثلاثة السريعة ⭐
-- ✅ **LinkedIn**: تم الربط عبر Composio والحساب نشط (`mahmoud rabeh` — linkedin.com/in/mahmoud-rabeh-7102071a3). الخطوة التالية: قل «جهز منشور» وأكتب لك أول منشور ثم أنشره.
-- 🎬 **رابط الفيديو**: أرسل أي رابط يوتيوب/فيميو في هذه المحادثة أو للبوت مباشرة — **الآن يُلخَّص تلقائياً** (كشف تلقائي + vidscribe محلي بلا Docker، 1-5 دقائق).
-- ⚙️ **Docker (اختياري)**: شغّل PowerShell كمسؤول: `wsl --install -d Ubuntu` ثم أعد تشغيل الجهاز — لتفعيل حاوية vidscribe الأسرع (المحلي يعمل حالياً بلا Docker).
-- ⬜ **إعادة تشغيل opencode** لتحميل الوكلاء الجدد (implementer/inspector/planner) — ثم جرب: «أطلق implementer و inspector في مهمتين متوازيتين».
-- 📱 **البوت**: أرسل رسالة عامة من الهاتف («ما هي المشاريع؟») — الآن يرد «⏳» فوراً ثم الإجابة (كان صامتاً 90 ثانية سابقاً).
+## NOW (2026-10-07) — قرار أدوات «وصول الإنترنت» ⭐
+- ⛔ **لا تثبّت Agent-Reach كاملاً** — 73% من منصاته صينية، وOpenCLI = Node + متصفح على جهاز يعاني ضغط ذاكرة موثّق.
+- ⬜ **الخيار 1 (الموصى به): لا شيء** — أنت تملك Firecrawl + Composio + vidscribe = تغطية 70%+ مجاناً.
+- ⬜ **الخيار 2 (خفيف):** `winget install GitHub.cli` — يفتح قناة GitHub كاملة بلا أي ثقل إضافي.
+- ⬜ **الخيار 3 (عند طلب Twitter/Reddit فعلاً):** `npm install -g opencli` فقط — بلا طبقة التوجيه.
+- 📌 **الملف المرجعي:** `C:\Users\RTX\.config\opencode\AGENT-REACH-REFERENCE.md` (كل الروابط + الأرقام + ما لديك + الفجوة + 4 سيناريوهات جاهزة).
+- 📌 **قاعدة 19 الجديدة:** رابط `mcporter` في README ذلك المشروع يشير لـ Fork بـ 4 نجوم — افحص حقل `parent` في GitHub API قبل أي رابط من README.
+- ✅ **تم 2026-10-07:** الملفان (`AGENT-REACH-REFERENCE.md` + `AGENT-REACH-PREFERENCES.md`) منسوخان إلى `~/.config/opencode/` **ومضافان إلى `instructions`** (17 ملفاً) — الترتيب: PREFERENCES قبل REFERENCE. الكلفة 30.4KB لكل جلسة. ⛔ **يلزم إعادة تشغيل opencode** لتفعيل التحميل.
+- ✅ **تصحيح 2026-10-07 (المهم):** Reddit **ليس** بلا pathway مجاني. القياس الأوسع كشف **`arctic-shift.photon-reddit.com`** و**`api.fxtwitter.com`** — كلاهما يعمل **بلا حساب ولا Cookie**. التُفِّا في `D:\ai\tools\web-read.py`. **لن تحتاج حساباً ثانوياً لما هو مُغطّى الآن.** ومثلها `gh` CLI 2.102.0 مثبّت.
+- ⚠️ **ما زال ينقص فعلاً:** **بحث Twitter/X** (لا مجاني — $200/شهر للـ API) و**تايم‌لاين** (syndication = 429) و**تعليقات Reddit** (الأرشيف لا يوفّرها). للحاجة الحقيقية لهذه الثلاثة: حساب ثانوي + OpenCLI.
+- 📌 **قاعدة 25 (الأهم في هذه الجلسة):** الحكم العمومي السلبي («X غير موجود / لا حل») يحتاج **بحثاً** لا N محاولات فاشلة. 3 فشل يثبتون فشل 3 أشياء فقط ولا يثبتون شيئاً عن الرابعة.
 
-## NOW — إعادة تشغيل نظيفة جارية (لا تغلق هذه النافذة)
-- ✅ الخطوة ١: تبين أنها عمليات يتيمة بلا نوافذ (نافذة واحدة ظاهرة فقط) → أُنهيت آليا.
-- ✅ الخطوة ٢: التطبيق أعاد التشغيل ذاتيا بعمليات جديدة (3:11) — المعالج هدأ من 99٪ إلى 10٪ والمساعدة من 26 إلى 8.
-- ✅ الخطوة ٣: المستخدم أكد السرعة تحسنت ("هكذا اسرع") — إعادة التشغيل اليدوية اختيارية الآن.
-- ✅ الخطوة ٤: تمت مصادقة `Gmail` عبر البوابة — الحساب نشط ومؤكد. بانتظار أول أمر بريدي منك.
-- ⬜ الخطوة ٥: استثناءات مضاد الفيروسات للمجلدات — متى شئت.
-- ⬜ الخطوة ٥: استثناءات مضاد الفيروسات للمجلدات — متى شئت.
+## NOW (2026-10-07) — تثبيت أداة Android بعد موافقتك ⭐
+- ⬜ **1) ثبّت `agent-device`**: `npm install -g agent-device@latest` ثم `agent-device doctor` (يتطلب Node 22.12+ وعندنا 24.15 ✓). **أخبرني «ثبّت» لأنفّذه**.
+- ⬜ **2) ثم أضيفه في `opencode.jsonc`** بـ `"enabled": false` ← تعيد تشغيل opencode ← تختبره ← عندها نفعّله.
+- ⬜ **3) اختياري لمشروع `winner-parental-control` فقط**: `@us-all/android-mcp` (76 أداة + 5 prompts تشخيص: `crash-investigation`, `memory-leak-detection`, `app-startup-profile`).
+- 📌 **لا تثبّت ثالثاً** — 3 خوادم MCP = ثقل إقلاع (درس 2026-09-16: إبطاء ~27 ث).
+- 📌 **الملف المرجعي**: `C:\Users\RTX\.config\opencode\ANDROID-TOOLS-REFERENCE.md` (TOP 4 + 9 مرفوضات بسببها).
 
-## Today (2026-09-17) — ترتيبك الجديد ⭐
-- ✅ **v4**: تم التفعيل والدفع والتحقق الحي — لا إجراء متبق.
-- ✅ **منفذ 8767**: يعمل الآن بالكود الجديد (8 نقاط verified) — لا حاجة لإجراء منك.
-- ⬜ **v4**: قل `فعّل` فقط إن أعجبتك اللقطة — أنسخ للجذر + فحص أمني + `push` + تحقق حي. بدون الكلمة لن ألمس الجذر.
-- ⬜ **التسويق (إجراءاتك)**: طبّق ملف البروفايل الجاهز على حسابك ثم انشر أول منشورين من العشرة، ثم أنشئ صفحة `Facebook` حسب القائمة.
-- ⬜ **البوت**: أرسل رسالة عامة بلا اسم مشروع من الهاتف للتأكد من الرد الذكي.
-- ⬜ **الفيديو**: شغل `Docker Desktop` ثم أرسل رابط فيديو حقيقي للتلخيص.
-- ⬜ **قرار الجهاز**: مؤجل لحين طلبك — لن أذكره مجددا.
+## NOW (2026-10-07) — إنهاء علاج تجميد شاشة OpenCode ⭐
+- ⬜ **خطوة واحدة منك**: أغلق OpenCode ← شغّل `C:\Users\RTX\Desktop\cleanup-opencode-db.bat` ← انتظر 2-5 دقائق. النتيجة المتوقعة: القاعدة من 2.08GB إلى ≈ 400MB، والنسخة الاحتياطية في `~\.local\share\opencode\_backup\`.
+- ✅ **تم بالفعل**: قتل 27 عملية MCP يتيمة (تحرير 1.61GB) + قمع تجمّد System UI في المحاكي + حارس تنظيف تلقائي عند كل تسجيل دخول.
+- 📌 **لمنع التكرار**: ابدأ جلسة جديدة كل ~500 رسالة (الجلسات الضخمة هي السبب)، أو أعد تشغيل السكربت كل شهرين.
+- 📌 **موفّر إضافي**: إغلاق محاكي Android يوفّر ~3.5GB من الذاكرة (قيمة `qemu-system-x86_64`).
+- ⛔ **لا تحاول `schtasks`/`Register-ScheduledTask`** — يرفض بـ Access denied بلا صلاحيات مسؤول. الحل المعتمد هو ملف VBS في مجلد Startup.
 
-## Today (2026-09-17) — للكل: إعادة تشغيل واختبار من الهاتف ⭐
-- ⬜ **job-hunt**: أعد تشغيل الخادم على 8767 ثم افتح أي وظيفة وتحقق من قسم الشركة.
-- ⬜ **البوت**: أرسل رسالة عامة بلا اسم مشروع من الهاتف للتأكد من الرد الذكي.
-- ⬜ **الفيديو**: شغل `Docker Desktop` ثم أرسل رابط فيديو حقيقي للتلخيص.
+## DONE (2026-10-06) — قالب Fullstack ⭐
+- ✅ **43 ملفاً في 4 فئات** — `fullstack\react-express-mono` جديد ومُختبَر بالكامل (install + build + CRUD حيّ + proxy) — النظام مكتمل الآن.
+- 📌 **أقصر مسار لمشروع جديد**: `cp -r templates\fullstack\react-express-mono my-app` → `npm install` → `npm run dev` → `localhost:5173`.
+- ⬜ (اختياري) قالب fullstack ثانٍ `react-fastapi` لمحبي Python.
 
-## Today (2026-09-16) — Firecrawl MCP + Composio — RESTART opencode ⭐
-- ✅ **مثبّتان**: `firecrawl` (remote — scrape/search/parse بلا مفتاح) + `composio` (remote — بوابة 1000+ تكامل) في `opencode.jsonc` — 12 خادماً (5 مفعّلة).
-- ⬜ **أعد تشغيل opencode الآن** لتحميل الخادمين → ثم `opencode mcp auth composio` للمصادقة → جرّب: "ابحث في الويب عن..." (firecrawl) و"اربط Gmail" (composio).
-- ⬜ اختياري لاحقاً: مفتاح `FIRECRAWL_API_KEY` (يفتح crawl/map/agent) — يُضاف في User env ثم header في الإعداد.
+## DONE (2026-10-06) — نظام القوالب + فحص APIs ⭐
+- ✅ **28 قالباً جاهزاً** في `D:\ai\MY-PREFERENCES\templates\` (React+shadcn / UX / Backend FastAPI+Express / عقود API / مخطط DB) — **مُختبرة بالكامل**: build ناجح + CRUD حيّ.
+- ✅ **كل الـ APIs تعمل** (OpenRouter + Ollama + Composio + Firecrawl + الخوادم المحلية) — تقرير «الخطأ → الإصلاح» مُسلَّم.
+- ✅ **MCP `shadcn-ui-local`** يعمل بعد إعادة التشغيل (قوالب موارده ظاهرة).
+- 📌 **كيف تستخدم القوالب**: افتح `templates\README.md` → جدول القرار → انسخ للمشروع → اتبع السلاسلة الذهبية (contract → schema → backend → frontend → UX audit → نشر).
 
-## Today (2026-09-16) — داشبورد job-hunt + تحسين سرعة الإقلاع — RESTART opencode ⭐
-- ✅ **داشبورد موحد** `D:\ai\job-hunt\dashboard.html` — صفحة واحدة بـ 4 تبويبات (المحلل الذكي + تحليل الوظائف + SWOT + 130 وظيفة) via iframes + lazy loading. خادم ثابت على 8768 لخدمة ملفات data/.
-- ✅ **صفحة إعدادات** `D:\ai\job-hunt\setup.html` — تظهر قبل النتائج: تحميل CV + LinkedIn + اختيار 8 مصادر + نوع العمل + 7 أسئلة تصفية + 4 deal breakers. تُحفظ في localStorage → dashboard.
-- ✅ **تعطيل 5 خوادم MCP** (context7 + github + mcp-ui + magic-ui + shadcn-ui) → يبقى 3 (playwright + chrome-devtools + uiux-pro). قُتلت 12 عملية زومبي. GITHUB_TOKEN موجود فعلاً في env.
-- ✅ **إصلاح الداشبورد** — إزالة `src=""` من iframes (كان يسبب تحميل الصفحة نفسها بدلاً من البيانات). كل 4 التبويبات تعمل الآن.
-- ✅ **API تصفية جديد** `/api/search` — يقبل: source, work_type, min_score, q, skills, location, limit. أُضيف try/except + `dict(j)` لتحويل sqlite3.Row.
-- ✅ **صفحة فلتر ذكية** `setup.html` — تحوّلت من صفحة إعدادات إلى فلتر + نتائج مباشرة (150 وظيفة مطابقة). أزرار تصنيف + بحث نصي + رابط العودة للداشبورد.
-- ⬜ **أعد تشغيل opencode الآن** لتطبيق تعطيل MCP وتحسين الإقلاع.
-- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator. شهادة Oracle SCM (ملغاة مؤقتاً — 2026-09-16). تنظيف ذاكرة completed projects.
-
-## Today (2026-09-15) — أدوات التصميم جاهزة — RESTART opencode ⭐
-- ✅ **14 مهارة تصميم** مثبتة في `C:\Users\RTX\.config\opencode\skills\selected\` (585KB) عبر `skills.paths` (9 من Google Stitch الرسمي + 5 Anti-slop).
-- ✅ **MCP chrome-devtools (52K⭐) مُفعّل** + **ملف مرجعي** `C:\Users\RTX\.config\opencode\DESIGN-REFERENCES.md` في instructions.
-- ✅ التحقق: 188/188 قوساً + `opencode run` ردّ "تمام".
-- ⬜ **أعد تشغيل opencode الآن** لتحميل المهارات و MCP الجديد → ثم جربها: "صمم كارت خدمة بمعايير frontend-design".
-- ⬜ **بانتظار المستخدم**: تفعيل Stitch MCP (`npx @_davideast/stitch-mcp init` — 10-15 دقيقة، يحتاج حساب Google Cloud).
-- ⬜ **بانتظار المستخدم**: معاينة v4 والموافقة → انسخ → الجذر + فحص أمني → push.
-
-## Today (2026-09-15/16) — MCP/UI-UX على المشاريع المنفذة — جاري الإغلاق
-- ✅ **داشبورد المشاريع** (`D:\ai\tools\dashboard\generate_dashboard.py`) — يقرأ ملفات الذاكرة + فحص حي → dashboard.html بتصميم Industrial. 134 منجز، 53 معلّق، 4 نشطة.
-- ✅ **CLI Launcher موحّد** — `cli_launcher.html` بهوية Industrial + dashboard card (22 أداة، 21/22 مثبتة).
-- ✅ **job-hunt index.html** — تدقيق WCAG: `:focus-visible` + `prefers-reduced-motion` + back-to-top + modal scroll fix. أقواس 194/194.
-- ⬜ **أعد تشغيل opencode الآن** لتحميل الـ 14 مهارة + chrome-devtools MCP.
-- ⬜ المستخدم: إضافة Felix/Ultrawork/FreelanceUp إلى job-aggregator + شهادة Oracle SCM (ملغاة مؤقتاً) + تنظيف ذاكرة completed projects.
-
-## Today (2026-09-15) — CLI Launcher v2: كل أداة بمجلدها + واجهة منفصلة (انتهت)
-- ✅ **النقل**: كل ملفات الـ Launcher انتقلت من `D:\ai\portfolio\tools\` → **`D:\ai\tools\`** (أدوات النظام لا تنتمي لريبو الموقع العام) — `start_bots.vbs` حُدّث + الخادم يعمل من الموقع الجديد.
-- ✅ **v2**: كل أداة لها **مجلدها الخاص** `D:\ai\tools\apps\<id>\app.json` (21 أداة) + **واجهة HTML مستقلة** `/app/<id>` (أوامر سريعة + تنفيذ بتقاط الناتج `/exec` + فتح طرفية `/run`).
-- ✅ **مولّد مركزي**: `D:\ai\tools\make_apps.py` — إضافة أداة = مجلد + JSON فقط.
-- ✅ **تحسينات**: أوامر `start` تعود فوراً + فحص Rust عبر `rustc` → كلها 21/21 مثبتة. مُختبَر بصرياً في المتصفح ✅
-- ⬜ **المستخدم**: يكمل بروفايل LinkedIn (الخطوات 2-7 — 20 دقيقة) ثم ينشر المنشورات 10.
-- ⬜ **المستخدم**: يراجع تقرير الوظائف ويرسل أفضل 3-5 وظائف يتقدم لها.
-
-## Today (2026-09-13) — Subagents + memory updated, RESTART opencode
-- ✅ **RESTART opencode now** to load the 3 new custom subagents (arabic/coder/fast) + GitHub MCP.
-- ✅ After restart, test parallel agents: "أطلق coder و arabic في مهمتين متوازيتين".
-- ⬜ USER works in `D:\ai\media-buying\` (LOCAL-ONLY, never push): configure LinkedIn (LINKEDIN-PROFILE-COPY.md → personal profile) → post the 10 posts → create social accounts per checklist.
-- ⬜ MCP: playwright + context7 installed; github MCP needs the restart too (GITHUB_TOKEN set & verified).
-
-## Today (2026-09-13) — Marketing files MOVED to private project
-- ✅ **SPLIT COMPLETE**: all marketing/learning files moved to `D:\ai\media-buying\` (own AGENTS/PROGRESS/NEXT_STEPS/DECISIONS). Portfolio repo = site code only (`eeedd7f` pushed).
-
-## Pending decisions from today (2026-09-13)
-- ⬜ **Hardware decision**: user asked which dependable local coding model + required specs. Answer delivered (Qwen3-Coder-30B-A3B @ 24GB VRAM — used RTX 3090 best value ~16-20k EGP, total ~32-42k; or economic 16GB path = Qwen3-Coder-14B w/ RTX 4060 Ti ~24-28k). **Awaiting user's choice** between the two levels (or final build parts list).
-- ⬜ **openrouter stays enabled** in opencode.jsonc (`disabled_providers` excludes it — its `:free` models work without key). When user adds keys for other providers, remove that provider from `disabled_providers` (comment in file explains).
-- ✅ small_model switched to `opencode/mimo-v2.5-free` (user approved; old `opencodefree/deepseek-v4-flash-free` was 429 rate-limited).
-- ✅ **v3 activated as active version** + responsive fixed + user-approved ("ممتاز ظبطت"). Test method saved in docs/RESPONSIVE-TESTING.md.
-- ✅ **Deploy #8 COMPLETE**: security scan passed → pushed `30d4994` → **LIVE**: `https://mahmoudrabeh-85.github.io/winner-dev/` (GitHub Pages was already enabled; redirects `/portfolio.html`; verified v3+responsive-fix+assets 200). Optional: Vercel/Cloudflare Pages connection later for custom domain/branch previews.
-- ✅ **Supervisor bot token was actually the one rotated** (not site bot) — new token in `supervisor/.env`, bot restarted (PID 3008), test msg delivered. Old site token in git history is 401/dead (cosmetic leftover) — optional git history cleanup later.
-
-## Tomorrow (2026-09-14) — Resume Here ⭐
-- الجلسة انتهت 2026-09-13 **بوضع "كل شيء مكتمل"** (user confirmed: "جرّبت البوت — كل شيء يعمل").
-- ✅ **Smart-reply tests PASSED on user's phone**: مرحبا → greeting رد ترحيب؛ المشاريع → قائمة؛ اعرض هيكل المشروع في portfolio → task انطلق؛ رسالة صوتية → فهمت ونفذت. **المنطق الجديد مُختبَر 11/11 محلياً + فعلياً من الهاتف.**
-- ✅ Supervisor bot: نسخة واحدة نظيفة (PID 2468) + توكن جديد `8703195403:AAF3Js3T...` + auto-start VBS في Startup.
-- ⬜ USER (أي وقت): add API keys to supervisor/.env (OPENROUTER/OPENAI/ANTHROPIC) — optional, mimo works without them
-- ⬜ USER: إعادة تسمية البوت عبر BotFather (Rabeh Consultant Bot) — 5 ثوانٍ
-- ⬜ USER (اختياري): git history cleanup of dead 401 token from api/telegram.js — cosmetic, needs force-push + "go"
-- ⬜ لاحقاً: حزمة التسويق (من قائمة مهام سابقة: LinkedIn/Facebook/affiliate/SEO)
-
-## Today — Supervisor Bot (built, needs user actions)
-- ✅ Supervisor bot built + running (D:\ai\supervisor\, PID 16696 → current PID 26468)
-- ✅ /task with model: selection + voice tasks + notifications
-- ✅ Chat with @mahmoudoc26_bot established (user pressed START, MSG_ID=9 delivered)
-- ⬜ USER: add API keys to supervisor/.env (OPENROUTER/OPENAI/ANTHROPIC) — cloud models only; local models confirmed NOT viable for opencode
-- ⬜ Test end-to-end: /projects → /models → /task portfolio اعرض هيكل المشروع → notification
-- ⬜ Test voice task from phone
-- ⬜ Long-term: both bots as Windows services (auto-start on boot)
-
-## Today — Versioning System (awaiting decision)
-- ✅ v1 archived (current design) — versions/v1-2026-09-08/
-- ✅ v2 added (Google Stitch design) — versions/v2-2026-09-10/
-- ✅ v3 added (Stitch + local images + Telegram bot) — versions/v3-2026-09-10/
-- ✅ VERSIONS.md registry created with switching methods
-- ✅ Telegram bot: @mahmoudagent26_bot (chat_id: 184519943)
-- ✅ API endpoint: api/telegram.js (Vercel Serverless Function)
-- ⬜ Review v3 locally (open versions/v3-2026-09-10/portfolio.html in browser)
-- ⬜ DECISION: make v3 the active version? (if yes: copy its files to root + push)
-- ⬜ If v3 goes live: test form submission end-to-end on Vercel
-- ⬜ Rename bot via BotFather: /setname → "Rabeh Consultant Bot"
-
-## Today — Media Buyer Learning (in progress)
-- ✅ 90-day marketing plan (PLAN-90DAYS.md) — DONE
-- ✅ Media buyer roadmap (MEDIA-BUYER-ROADMAP.md) — DONE
-- ✅ Word reference doc (Media-Buyer-Reference.docx) — DONE, updates on "حدّث المرجع"
-- ⬜ Practice: install Meta Business account + Pixel (step 1 of floor 3)
-- ⬜ First real campaign with 100-150 EGP/day (after Pixel setup)
-
-## Tomorrow — Marketing Package (awaiting approval to start)
-1. Build 90-day marketing plan (Egypt + Gulf + USA, per-platform strategy).
-2. Write LinkedIn posts (Arabic + English, ~10 posts) — configure profile first.
-3. Write Facebook/Instagram/TikTok/YouTube content (Egypt).
-4. Build affiliate roadmap (specialty + general products + mix, Egyptian networks: Noon/Jumia/Amazon).
-5. SEO audit of portfolio.html: meta tags, JSON-LD (Person + Service), keywords, sitemap, robots.
-6. Setup checklist file for accounts (LinkedIn, FB page, TikTok, YouTube, Instagram, WhatsApp Business, Upwork).
-
-## Web (optional polish later)
-- Test live deployment on Cloudflare Pages + Vercel after language-toggle changes.
-- Verify language toggle works on mobile (single button visible).
-
-## Completed This Session (2026-09-08)
-- ✅ Created PLAN-90DAYS.md (90-day marketing plan)
-- ✅ Created MEDIA-BUYER-ROADMAP.md (5-phase learning roadmap)
-- ✅ Created Media-Buyer-Reference.docx (Word reference, updates on request)
-- ✅ Removed Knowledge Center section (all "Coming Soon" items)
-- ✅ Moved social bar icons to left side (left:14px fixed)
-- ✅ Unified language toggle: single button "Change Language" / "تغيير اللغة" in nav
-- ✅ Portfolio size reduced: 95KB → ~74KB, 15 sections → 14
-- ✅ Removed pricing from services (negotiable only)
-- ✅ Started marketing plan discussion (Egypt + Gulf + USA, LinkedIn-first, affiliate learning)
-
-## Session 2026-09-07 (completed)
+## قائمة دائمة (2026-09-27) — ملفات التفضيلات الحية ⭐
+- 📌 **فوراً عند أي تفضيل جديد**: سجّله في `D:\ai\MY-PREFERENCES\MY-PREFERENCES.md` (تفضيلات عامة + خاصة) — لا تنتظر نهاية الجلسة.
+- 📌 **نهاية كل جلسة**: حدّث `C:\Users\RTX\.config\opencode\LEARNING.md` (المصدر) أولاً ثم أعد نسخه إلى `D:\ai\MY-PREFERENCES\LEARNING.md` (مزامنة المرآة بـ Copy-Item + التحقق SHA256).
+- 📌 **اقرأ الملفين في بداية أي جلسة** في هذا المشروع أو غيره (MY-PREFERENCES = تطبيق، LEARNING = دروس).
