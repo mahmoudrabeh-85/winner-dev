@@ -6,16 +6,17 @@
 - ✅ **الحلول الأربعة طُبِّقت فعلاً**: (1) أرشفة الذاكرة الأربعة بلا حذف + تحقق `ALL VERIFIED`، (2) `instructions` = 12 عنصراً، (3) `small_model`/`agent.arabic`/`build` ← `opencode/mimo-v2.6-flash-free`، (4) `tool_output.max_bytes = 20000`.
 - ✅ **اختبار `provider.opencode` مغلق**: إدخال فارغ `{} يدمج` مع المورد المدمج (11 موديل) والمصادقة تعمل بلا `apiKey` → **حُذف الإدخال، لا حاجة له**.
 - ✅ **أُعيد تشغيل OpenCode** (15:49) — كل التغييرات محمّلة (لا hot-reload).
-- ⬜ **بانتظار قرارك**: (أ) حذف `D:\ai\portfolio\opencode.json` (إعداد مشروع قديم، 4 أسطر)، (ب) إقفال توثيق Kali Linux (مثبّت ومكتمل — أغلقه في `PROGRESS`؟)، (ج) نشر `winner-dev` (بانتظار «go» + فحص أمني).
+- ✅ **اكتمل الثلاث (2026-10-09)**: (أ) حُذف `D:\ai\portfolio\opencode.json` ✅، (ب) أُقفل توثيق Kali Linux في `PROGRESS` ✅، (ج) **نُشر winner-dev** — commit `70f52a4` على `main` + تحقّق حيّ (E1-E3 + honeypot) ✅.
 - 📌 **الدروس 18-26 لم تعد في سياق LEARNING النشط** — تُقرأ من `LEARNING-ARCHIVE.md` أو `AGENT-REACH-REFERENCE.md` / `PROBLEM-SOLVING-PLAYBOOK.md`.
 
-## NOW (2026-10-09) — إظهار سياق كل موديل في `/models` — أعد تشغيل OpenCode ⭐
-- ✅ **طُبِّقت كل التعديلات فعلياً** في `C:\Users\RTX\.config\opencode\opencode.jsonc` — دُمج حجم السياق داخل حقل `name` لكل موديل دون تغيير أي معرّف `model` (التحقق: `VALID JSONC` + **51 موديل بـ`name` + 29 بلا `name`** — كلها مقصودة).
-- ✅ **مزامنة المرآة مُقفلة (2026-10-09)**: `SRC(normalized CR->LF) == MIR: True` — الفرق الوحيد كان CR منفردين في المصدر تحوّلا إلى LF في المرآة (الطول متطابق 124247 بايت، والمحتوى متكافئ)؛ قِسم 2026-10-09 هو الأخير في المرآة (السطر 806–822)؛ حُذفت السكربتات المؤقتة الثلاثة (`check_learning.py`، `find_cjk.py`، `verify_mirror.py`) وتأكّد غيابها.
-- ⬜ **الخطوة الوحيدة المطلوبة منك**: **أعد تشغيل OpenCode** — الإعداد يُحمَّل عند الإقلاع فقط (لا hot-reload). ستظهر عندك أمثلة: `Kimi K3 (200k)`، `nemotron-3-ultra-550b-a55b:free (1M)`، `DeepSeek V4 Flash (128k, free)`.
-- 📌 **قاعدة الصياغة المتبعة**: `ctx >= 1_000_000` → `"1M"`، وإلا `round(ctx/1000) + "k"` (262144→262k، 131072→131k، 65536→66k). المصدر: `limit.context` في الإعداد أو `openrouter.ai/api/v1/models` — **لا تخمين**.
-- ⚠️ **7 موديلات OpenRouter بلا سياق موثّق** (alias `openrouter/free` + 6 معرّفات أكد API غيابها: minimax-m3، minimax-m2.7، ling-3.0-flash-fin، ling-3.0-flash-sante، glm-5.2، deepseek-v4-flash) — **تُركت `{}`** بلا اسم التزاماً بقاعدة عدم التخمين.
-- ⚠️ **مستثناة بلا تخمين أيضاً**: `lmstudio` (4 موديلات) + `ollama/gemma4:31b-cloud` — بلا مصدر سياق موثّق فبقيت `{}`.
+## NOW (2026-10-09) — تقصير أسماء النماذج + تصغير خط Windows Terminal — أعد تشغيل OpenCode ⭐
+- ✅ **تقصير الأسماء منجَز**: استبدال `img, think` → `i, t` و `, img)` → `, i)` و `, think)` → `, t)` في `opencode.jsonc` — 66 موديلاً. مثال: `Exo Free (1M, i, t)`.
+- ✅ **تصغير الخط منجَز**: `"fontSize": 8` في `profiles.defaults` بملف `settings.json` الخاص بـ Windows Terminal.
+- ✅ **التحقق**: JSONC سليم + CLI يعرض الأسماء الجديدة. نسخة احتياطية: `opencode.jsonc.bak-shortnames`.
+- ⬜ **الخطوة الوحيدة المطلوبة منك**: **أعد تشغيل OpenCode** — الإعداد يُحمَّل عند الإقلاع فقط (لا hot-reload). ستظهر أمثلة: `Exo Free (1M, i, t)`، `Kimi K3 (1M, i, t)`، `Big Pickle (200k, t)`.
+- 📌 **قاعدة الصياغة**: `ctx >= 1_000_000` → `"1M"`، وإلا `round(ctx/1000) + "k"`، والوسوم المختصرة بعد السياق داخل القوس: `i` = img، `t` = think. **لا وسم `web`**.
+- 📌 **ملاحظة**: `deepseek-flash` و`deepseek-v4-pro` (مكتشفان من API) بلا سياق في الاسم — بطاقة V4 الرسمية تقول 1M لكن المعرّف المعلن V4.1 ← وسوم فقط حتى مصدر موثّق لـV4.1.
+- ✅ **مزامنة المرآة مُقفلة (2026-10-09)**: `SRC(normalized CR->LF) == MIR: True` (الطول 124247 بايت كلاهما).
 
 ## NOW (2026-10-07) — قرار أدوات «وصول الإنترنت» ⭐
 - ⛔ **لا تثبّت Agent-Reach كاملاً** — 73% من منصاته صينية، وOpenCLI = Node + متصفح على جهاز يعاني ضغط ذاكرة موثّق.

@@ -67,7 +67,8 @@
               900: '#0B0F17',
               800: '#0F131C',
               700: '#171E2D',
-              600: '#232D42'
+              600: '#232D42',
+              500: '#1B2440'
             },
             gold: {
               300: '#FDE047',
@@ -94,10 +95,10 @@
     :root {
       --primary-gold: #D4A843;
       --deep-obsidian: #0B0F17;
-      --card-bg: rgba(15, 19, 28, 0.75);
+      --card-bg: rgba(47, 57, 81, 0.70);
     }
     body {
-      background-color: #0B0F17;
+      background-color: #1B2440;
       color: #F3F4F6;
       font-family: 'Inter', 'Tajawal', sans-serif;
       overflow-x: hidden;
@@ -111,18 +112,18 @@
       background-image: url('jpg.png');
       background-size: cover;
       background-position: center 25%;
-      opacity: 0.50;
+      opacity: 0.22;
       filter: blur(3px);
       transform: scale(1.02);
       pointer-events: none;
     }
     /* Tablet: softer background */
     @media (max-width: 768px) {
-      body::before { opacity: 0.35; }
+      body::before { opacity: 0.18; }
     }
     /* Mobile: lightest background for readability */
     @media (max-width: 480px) {
-      body::before { opacity: 0.25; }
+      body::before { opacity: 0.15; }
     }
     .glass-panel {
       background: var(--card-bg);
@@ -236,11 +237,8 @@
 
     /* Mobile (≤ 480px) */
     @media (max-width: 480px) {
-      /* Social bar — minimal */
-      .social-bar.social-stack { left: 0.5rem; gap: 0.375rem; }
-      [dir="ltr"] .social-bar.social-stack { right: 0.5rem; }
-      .social-icon { width: 2rem; height: 2rem; }
-      .social-icon svg { width: 1.125rem; height: 1.125rem; }
+      /* Social bar — hidden on very small screens (overlaps content) */
+      .social-bar.social-stack { display: none; }
 
       /* QR — hidden on very small screens */
       .qr-float { display: none; }
@@ -290,9 +288,9 @@
     @keyframes toastOut{to{opacity:0;transform:translateY(12px) scale(.95)}}
   </style>
 </head>
-<body class="bg-obsidian-900 text-gray-100 antialiased selection:bg-gold-500 selection:text-obsidian-950">
+<body class="bg-obsidian-500 text-gray-100 antialiased selection:bg-gold-500 selection:text-obsidian-950">
 <!-- BEGIN: StickyNavigation -->
-<header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-obsidian-900/85 border-b border-gold-500/20">
+<header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-obsidian-600/85 border-b border-gold-500/20">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
 <!-- Brand Logo -->
 <a class="flex items-center gap-3 group" href="#home">
@@ -325,9 +323,25 @@
 <a class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs uppercase tracking-wider font-semibold rounded-md bg-gold-500 text-obsidian-950 hover:bg-gold-400 transition shadow-gold-glow" data-ar="احجز استشارة" data-en="Book Consultation" href="#contact">
           احجز استشارة
         </a>
+<button id="menuBtn" aria-label="القائمة" aria-expanded="false" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-gold-500/40 text-gold-400 hover:bg-gold-500 hover:text-obsidian-950 transition">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
 </div>
 </div>
 </header>
+<!-- Mobile Nav Panel (responsive menu under lg) -->
+<div id="mobileMenu" class="hidden lg:hidden sticky top-20 z-40 bg-obsidian-600/95 backdrop-blur-xl border-b border-gold-500/20">
+<nav class="px-4 py-2 flex flex-col" aria-label="قائمة الموبايل">
+<a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="الرئيسية" data-en="Home" href="#home">الرئيسية</a>
+<a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="عني" data-en="About Me" href="#about">عني</a>
+<a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="المجالات" data-en="Domains" href="#brands-overview">المجالات</a>
+<a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="الخدمات" data-en="Services" href="#services">الخدمات</a>
+<a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="منهجية العمل" data-en="Process" href="#process">منهجية العمل</a>
+<a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="المشاريع" data-en="Projects" href="#projects">المشاريع</a>
+<a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="أدوات بنيتها" data-en="Tools I Built" href="#toolkit">أدوات بنيتها</a>
+<a class="block px-2 py-3 text-gray-200 hover:text-gold-400 transition" data-ar="تواصل معي" data-en="Contact" href="#contact">تواصل معي</a>
+</nav>
+</div>
 <!-- END: StickyNavigation -->
 <!-- BEGIN: FloatingSocialBar -->
 <aside aria-label="Social Channels" class="social-bar social-stack">
@@ -371,7 +385,7 @@
 <!-- END: QRModal -->
 <main>
 <!-- BEGIN: HeroSection (#home) -->
-<section class="relative min-h-[92vh] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 overflow-hidden" id="home"><div class="absolute inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute top-1/4 right-1/4 w-3 h-3 rounded-full bg-gold-400 blur-[1px] float-particle-1"></div><div class="absolute top-1/2 left-1/5 w-2 h-2 rounded-full bg-gold-300 blur-[1px] float-particle-2"></div><div class="absolute bottom-1/3 right-1/3 w-2.5 h-2.5 rounded-full bg-gold-500 blur-[1px] float-particle-3"></div><div class="absolute top-2/3 left-1/3 w-1.5 h-1.5 rounded-full bg-gold-300 blur-[0.5px] float-particle-1"></div></div><div class="absolute inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-obsidian-900 via-obsidian-900/80 to-obsidian-950/70"></div><div class="absolute inset-0 bg-obsidian-950/40 backdrop-blur-[2px]"></div></div>
+<section class="relative min-h-[92vh] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 overflow-hidden" id="home"><div class="absolute inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute top-1/4 right-1/4 w-3 h-3 rounded-full bg-gold-400 blur-[1px] float-particle-1"></div><div class="absolute top-1/2 left-1/5 w-2 h-2 rounded-full bg-gold-300 blur-[1px] float-particle-2"></div><div class="absolute bottom-1/3 right-1/3 w-2.5 h-2.5 rounded-full bg-gold-500 blur-[1px] float-particle-3"></div><div class="absolute top-2/3 left-1/3 w-1.5 h-1.5 rounded-full bg-gold-300 blur-[0.5px] float-particle-1"></div></div><div class="absolute inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-obsidian-600 via-obsidian-600/70 to-obsidian-600/55"></div><div class="absolute inset-0 bg-obsidian-600/35 backdrop-blur-[2px]"></div></div>
 <!-- Decorative Obsidian & Gold ambient backdrop -->
 <div class="absolute top-1/4 -right-40 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
 <div class="absolute bottom-10 -left-40 w-96 h-96 bg-obsidian-700/50 rounded-full blur-3xl pointer-events-none"></div>
@@ -451,7 +465,7 @@
 </section>
 <!-- END: HeroSection -->
 <!-- BEGIN: AboutSection (#about) -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-950/70 border-y border-obsidian-800" id="about">
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-600/70 border-y border-obsidian-800" id="about">
 <div class="max-w-7xl mx-auto">
 <div class="text-center max-w-3xl mx-auto mb-16">
 <h2 class="text-xs font-bold uppercase tracking-widest text-gold-400 mb-2" data-ar="نبذة تعريفية" data-en="About Mahmoud">نبذة تعريفية</h2>
@@ -471,7 +485,7 @@
             </p>
 </div>
 <!-- Key metric badges (4 badges) -->
-<div class="lg:col-span-5 grid grid-cols-2 gap-4"><div class="glass-panel p-6 rounded-2xl border border-gold-500/20 text-center reveal-on-scroll"><span class="block text-4xl font-display font-extrabold text-gold-400 mb-1 counter-number" data-target="18" data-suffix="+">18+</span><span class="text-sm font-semibold text-gray-200 block" data-ar="سنوات خبرة" data-en="Years Exp">سنوات خبرة</span><span class="text-xs text-gray-400" data-ar="إدارة ومشتريات" data-en="Procurement Hub">إدارة ومشتريات</span></div><div class="glass-panel p-6 rounded-2xl border border-gold-500/20 text-center reveal-on-scroll"><span class="block text-4xl font-display font-extrabold text-gold-400 mb-1 counter-number" data-target="50" data-suffix="+">50+</span><span class="text-sm font-semibold text-gray-200 block" data-ar="مشروع استشاري" data-en="Projects Done">مشروع استشاري</span><span class="text-xs text-gray-400" data-ar="تحول وتطوير" data-en="Transformation">تحول وتطوير</span></div><div class="glass-panel p-6 rounded-2xl border border-gold-500/20 text-center reveal-on-scroll"><span class="block text-4xl font-display font-extrabold text-gold-400 mb-1 counter-number" data-target="5" data-suffix="">5</span><span class="text-sm font-semibold text-gray-200 block" data-ar="قطاعات حيوية" data-en="Core Sectors">قطاعات حيوية</span><span class="text-xs text-gray-400" data-ar="أدوية، صحة، تجارة" data-en="Pharma, Trade, etc">أدوية، صحة، تجارة</span></div><div class="glass-panel p-6 rounded-2xl border border-gold-500/20 text-center reveal-on-scroll"><span class="block text-4xl font-display font-extrabold text-gold-400 mb-1 counter-number" data-target="100" data-suffix="%">100%</span><span class="text-sm font-semibold text-gray-200 block" data-ar="التزام بالنتائج" data-en="Commitment">التزام بالنتائج</span><span class="text-xs text-gray-400" data-ar="مؤشرات أداء واضحة" data-en="Measurable KPIs">مؤشرات أداء واضحة</span></div></div>
+<div class="lg:col-span-5 grid grid-cols-2 gap-4"><div class="glass-panel p-6 rounded-2xl border border-gold-500/20 text-center reveal-on-scroll"><span class="block text-3xl sm:text-4xl font-display font-extrabold text-gold-400 mb-1 counter-number" data-target="18" data-suffix="+">18+</span><span class="text-sm font-semibold text-gray-200 block" data-ar="سنوات خبرة" data-en="Years Exp">سنوات خبرة</span><span class="text-xs text-gray-400" data-ar="إدارة ومشتريات" data-en="Procurement Hub">إدارة ومشتريات</span></div><div class="glass-panel p-6 rounded-2xl border border-gold-500/20 text-center reveal-on-scroll"><span class="block text-3xl sm:text-4xl font-display font-extrabold text-gold-400 mb-1 counter-number" data-target="50" data-suffix="+">50+</span><span class="text-sm font-semibold text-gray-200 block" data-ar="مشروع استشاري" data-en="Projects Done">مشروع استشاري</span><span class="text-xs text-gray-400" data-ar="تحول وتطوير" data-en="Transformation">تحول وتطوير</span></div><div class="glass-panel p-6 rounded-2xl border border-gold-500/20 text-center reveal-on-scroll"><span class="block text-3xl sm:text-4xl font-display font-extrabold text-gold-400 mb-1 counter-number" data-target="5" data-suffix="">5</span><span class="text-sm font-semibold text-gray-200 block" data-ar="قطاعات حيوية" data-en="Core Sectors">قطاعات حيوية</span><span class="text-xs text-gray-400" data-ar="أدوية، صحة، تجارة" data-en="Pharma, Trade, etc">أدوية، صحة، تجارة</span></div><div class="glass-panel p-6 rounded-2xl border border-gold-500/20 text-center reveal-on-scroll"><span class="block text-3xl sm:text-4xl font-display font-extrabold text-gold-400 mb-1 counter-number" data-target="100" data-suffix="%">100%</span><span class="text-sm font-semibold text-gray-200 block" data-ar="التزام بالنتائج" data-en="Commitment">التزام بالنتائج</span><span class="text-xs text-gray-400" data-ar="مؤشرات أداء واضحة" data-en="Measurable KPIs">مؤشرات أداء واضحة</span></div></div>
 </div>
 </div>
 </section>
@@ -528,7 +542,7 @@
 </section>
 <!-- END: BrandsOverviewSection -->
 <!-- BEGIN: BusinessHubSection (#business-hub) -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-950/60 border-t border-obsidian-800" id="business-hub">
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-600/60 border-t border-obsidian-800" id="business-hub">
 <div class="max-w-7xl mx-auto">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 <div class="lg:col-span-6 space-y-6">
@@ -588,7 +602,7 @@
 </div>
 </div>
 </div>
-<div class="mt-8 p-4 rounded-xl bg-obsidian-900/80 border border-obsidian-700 text-xs text-gray-300 text-center">
+<div class="mt-8 p-4 rounded-xl bg-obsidian-600/80 border border-obsidian-700 text-xs text-gray-300 text-center">
 <span data-ar="تم تصميم الخطط التشغيلية لتلائم قوانين السوق المصري والخليجي وتحديات سلاسل الإمداد الدولية." data-en="Operational frameworks tailored specifically to Egyptian &amp; Gulf markets and global supply challenges." class="">تم تصميم الخطط التشغيلية لتلائم قوانين السوق المصري والخليجي وتحديات سلاسل الإمداد الدولية.</span>
 </div>
 </div>
@@ -632,7 +646,7 @@
 </section>
 <!-- END: ArabicAcademySection -->
 <!-- BEGIN: AiLabSection (#ai-lab) -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-950/60 border-t border-obsidian-800" id="ai-lab">
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-600/60 border-t border-obsidian-800" id="ai-lab">
 <div class="max-w-7xl mx-auto">
 <div class="text-center max-w-3xl mx-auto mb-16">
 <span class="text-xs font-bold uppercase tracking-widest text-gold-400 mb-2 block" data-ar="المستقبل الآن" data-en="Future Architecture">المستقبل الآن</span>
@@ -783,7 +797,7 @@
 </section>
 <!-- END: ServicesSection -->
 <!-- BEGIN: HowIHelpSection (#how-i-help) -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-950/60 border-t border-obsidian-800" id="how-i-help">
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-600/60 border-t border-obsidian-800" id="how-i-help">
 <div class="max-w-7xl mx-auto">
 <div class="text-center max-w-3xl mx-auto mb-16">
 <span class="text-xs font-bold uppercase tracking-widest text-gold-400 mb-2 block" data-ar="أثر ملموس وقابل للقياس" data-en="Tangible Business Impact">أثر ملموس وقابل للقياس</span>
@@ -885,7 +899,7 @@
 </section>
 <!-- END: ProcessSection -->
 <!-- BEGIN: ProjectsSection (#projects) -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-950/60 border-t border-obsidian-800" id="projects">
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-600/60 border-t border-obsidian-800" id="projects">
 <div class="max-w-7xl mx-auto">
 <div class="text-center max-w-3xl mx-auto mb-16">
 <span class="text-xs font-bold uppercase tracking-widest text-gold-400 mb-2 block" data-ar="سجل الإنجازات" data-en="Verified Case Studies">سجل الإنجازات</span>
@@ -1123,7 +1137,7 @@
 </section>
 <!-- END: SkillsSection -->
 <!-- BEGIN: FaqSection (#faq) -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-950/60 border-t border-obsidian-800" id="faq">
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-600/60 border-t border-obsidian-800" id="faq">
 <div class="max-w-4xl mx-auto">
 <div class="text-center mb-16">
 <span class="text-xs font-bold uppercase tracking-widest text-gold-400 mb-2 block" data-ar="إجابات واضحة" data-en="Clear Answers">إجابات واضحة</span>
@@ -1249,7 +1263,7 @@
 </section>
 <!-- END: TestimonialsSection -->
 <!-- BEGIN: ContactSection (#contact) -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-950 border-t border-obsidian-800 relative" id="contact">
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-obsidian-600 border-t border-obsidian-800 relative" id="contact">
 <div class="max-w-7xl mx-auto">
 <div class="text-center max-w-3xl mx-auto mb-16">
 <span class="text-xs font-bold uppercase tracking-widest text-gold-400 mb-2 block" data-ar="جاهز للتطوير" data-en="Initiate Engagement">جاهز للتطوير</span>
@@ -1283,10 +1297,10 @@
 </a>
 <!-- Professional Profiles Links -->
 <div class="pt-4 border-t border-obsidian-700 flex items-center gap-4">
-<a class="text-xs font-semibold px-4 py-2 rounded-lg bg-obsidian-800 hover:bg-gold-500 hover:text-obsidian-950 transition border border-gold-500/30" href="https://linkedin.com" rel="noopener" target="_blank">
+<a class="text-xs font-semibold px-4 py-2 rounded-lg bg-obsidian-600 hover:bg-gold-500 hover:text-obsidian-950 transition border border-gold-500/30" href="https://linkedin.com" rel="noopener" target="_blank">
                   LinkedIn Profile
                 </a>
-<a class="text-xs font-semibold px-4 py-2 rounded-lg bg-obsidian-800 hover:bg-gold-500 hover:text-obsidian-950 transition border border-gold-500/30" href="https://upwork.com" rel="noopener" target="_blank">
+<a class="text-xs font-semibold px-4 py-2 rounded-lg bg-obsidian-600 hover:bg-gold-500 hover:text-obsidian-950 transition border border-gold-500/30" href="https://upwork.com" rel="noopener" target="_blank">
                   Upwork Verified
                 </a>
 </div>
@@ -1304,21 +1318,21 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-semibold text-gray-300 mb-1" data-ar="الاسم الكريم" data-en="Full Name">الاسم الكريم</label>
-<input class="w-full bg-obsidian-900 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400" placeholder="مثال: د. محمد أحمد" required="" type="text">
+<input class="w-full bg-obsidian-600 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400" placeholder="مثال: د. محمد أحمد" required="" type="text">
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-300 mb-1" data-ar="رقم الهاتف / واتساب" data-en="WhatsApp / Phone">رقم الهاتف / واتساب</label>
-<input class="w-full bg-obsidian-900 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400" placeholder="+20 100 ..." required="" type="tel">
+<input class="w-full bg-obsidian-600 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400" placeholder="+20 100 ..." required="" type="tel">
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-semibold text-gray-300 mb-1" data-ar="البريد الإلكتروني" data-en="Corporate Email">البريد الإلكتروني</label>
-<input class="w-full bg-obsidian-900 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400" placeholder="name@company.com" required="" type="email">
+<input class="w-full bg-obsidian-600 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400" placeholder="name@company.com" required="" type="email">
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-300 mb-1" data-ar="المجال المطلوب" data-en="Requested Track">المجال المطلوب</label>
-<select class="w-full bg-obsidian-900 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400">
+<select class="w-full bg-obsidian-600 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400">
 <option data-ar="استشارات المشتريات وسلاسل الإمداد" data-en="Procurement &amp; SCM Advisory" value="business">استشارات المشتريات وسلاسل الإمداد</option>
 <option data-ar="أتمتة الذكاء الاصطناعي وتطوير الوكلاء" data-en="AI Automation &amp; Agents" value="ai">أتمتة الذكاء الاصطناعي وتطوير الوكلاء</option>
 <option data-ar="الأكاديمية العربية وتعليم القرآن" data-en="Arabic &amp; Quran Academy" value="arabic">الأكاديمية العربية وتعليم القرآن</option>
@@ -1328,10 +1342,10 @@
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-300 mb-1" data-ar="تفاصيل المشروع أو الاستفسار" data-en="Project Scope or Message">تفاصيل المشروع أو الاستفسار</label>
-<textarea class="w-full bg-obsidian-900 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400" placeholder="اذكر بإيجاز طبيعة عمل شركتك، التحدي الحالي، أو الهدف المنشود..." required="" rows="4"></textarea>
+<textarea class="w-full bg-obsidian-600 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400" placeholder="اذكر بإيجاز طبيعة عمل شركتك، التحدي الحالي، أو الهدف المنشود..." required="" rows="4"></textarea>
 </div>
 <!-- Honeypot: حقل مخفي للبوتات — البشر لا يرونه ولا يملاونه (تحصين 2026-09-23) -->
-<div class="hp-field" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+<div class="hp-field" style="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden" aria-hidden="true">
 <label for="company_website">Website (leave empty)</label>
 <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
 </div>
@@ -1371,7 +1385,7 @@ window.open('https://t.me/mahmoudagent26_bot?text=' + encodeURIComponent(msg), '
 <!-- END: ContactSection -->
 </main>
 <!-- BEGIN: Footer -->
-<footer class="bg-obsidian-950 border-t border-obsidian-800 py-10 px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-400">
+<footer class="bg-obsidian-800 border-t border-obsidian-800 py-10 px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-400">
 <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
 <div class="flex items-center gap-2">
 <div class="w-7 h-7 rounded bg-gold-500 flex items-center justify-center text-obsidian-950 font-bold text-xs">MR</div>
@@ -1471,6 +1485,22 @@ window.open('https://t.me/mahmoudagent26_bot?text=' + encodeURIComponent(msg), '
           if (e.target === qrModal) {
             qrModal.classList.remove('active');
           }
+        });
+      }
+
+      // 4. Mobile Menu Toggle (responsive nav under lg)
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          const isHidden = mobileMenu.classList.toggle('hidden');
+          menuBtn.setAttribute('aria-expanded', String(!isHidden));
+        });
+        mobileMenu.querySelectorAll('a').forEach((a) => {
+          a.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          });
         });
       }
     });
