@@ -1,0 +1,218 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>winner apps — تطبيقات تُبنى بعناية</title>
+<meta name="description" content="عائلة تطبيقات محمود رابح: فصل الصوت، تلخيص المحتوى، مساعد تقني محلي، أدوات وظائف — مبنية محلياً وتُسلَّم بالنتيجة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M18 28 L42 92 L60 52 L78 92 L102 28' fill='none' stroke='%230B1220' stroke-width='10' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Crect x='108' y='28' width='6' height='64' fill='%2300A8CC'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#F7F9FB; --surface:#FFFFFF; --text:#0B1220; --muted:#5B6B7C;
+    --cta:#00A8CC; --cta-hover:#008FA8; --border:#E4EAF0;
+    --shadow:0 1px 3px rgba(11,18,32,.06);
+    --shadow-lift:0 6px 18px rgba(11,18,32,.08);
+    --r-card:12px; --r-btn:10px;
+  }
+  html{color-scheme:light}
+  /* ===== DARK = PORTFOLIO PALETTE (2026-10-18): obsidian + gold, so the visitor sees one identity ===== */
+  html[data-theme="dark"]{
+    color-scheme:dark;
+    --bg:#121828;        /* obsidian-500  (portfolio body) */
+    --surface:#1B2440;   /* obsidian-600  (portfolio glass sections) */
+    --text:#F3F4F6;      /* text-gray-100 (portfolio body text) */
+    --muted:#9CA3AF;     /* text-gray-400 */
+    --cta:#D4A843;       /* gold-500      (portfolio primary CTA) */
+    --cta-hover:#EAB308; /* gold-400 */
+    --border:#171E2D;    /* obsidian-700  (portfolio separators) */
+    --shadow:0 1px 3px rgba(0,0,0,.45);
+    --shadow-lift:0 8px 22px rgba(0,0,0,.55);
+  }
+  html[data-theme="dark"] .btn{color:#070A0F}   /* obsidian-950 on gold, same as portfolio's "احجز استشارة" */
+  html[data-theme="dark"] .hero .wm{opacity:.09}
+  html[data-theme="dark"] footer .wm{opacity:.10}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:"Tajawal","Inter",system-ui,sans-serif;
+       line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+  .latin{font-family:"Inter",sans-serif;direction:ltr;unicode-bidi:embed}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--cta);outline-offset:3px;border-radius:6px}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+  .topbar{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border)}
+  .topbar .wrap{display:flex;align-items:center;gap:24px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;direction:ltr}
+  .brand .mono{width:28px;height:28px;display:block;flex:none}
+  .brand .b-apps{color:var(--cta)}
+  nav.top-nav{margin-inline-start:auto;display:flex;align-items:center;gap:20px}
+  nav.top-nav a.link{color:var(--muted);font-size:15px;font-weight:500;transition:color .15s}
+  nav.top-nav a.link:hover{color:var(--text)}
+  .btn{display:inline-block;background:var(--cta);color:#fff;font-weight:700;padding:10px 22px;
+       border-radius:var(--r-btn);border:none;cursor:pointer;font-family:inherit;font-size:15px;
+       transition:background .15s,transform .15s}
+  .btn:hover{background:var(--cta-hover);transform:translateY(-1px)}
+
+  .hero{position:relative;padding:96px 0 72px;text-align:center;overflow:hidden}
+  .hero .wm{position:absolute;inset-inline-start:50%;top:28%;transform:translateX(50%);
+            width:320px;height:320px;opacity:.06;pointer-events:none}
+  .eyebrow{color:var(--cta);font-weight:700;font-size:14px;letter-spacing:.02em}
+  h1{font-size:clamp(32px,5vw,48px);font-weight:800;line-height:1.35;margin:12px auto 14px;max-width:720px}
+  .sub{color:var(--muted);font-size:18px;max-width:640px;margin:0 auto 28px}
+  .hero .btn{padding:12px 28px;font-size:16px}
+
+  .apps{padding:8px 0 88px}
+  .apps h2{font-size:28px;font-weight:700;margin-bottom:6px}
+  .rule{width:32px;height:3px;background:var(--cta);border-radius:2px;margin-bottom:32px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  /* mobile topbar: brand row + actions row -> no horizontal overflow (measured 2026-10-18) */
+  @media(max-width:640px){
+    .topbar .wrap{flex-wrap:wrap;height:auto;padding:10px 0;gap:10px}
+    nav.top-nav{margin-inline-start:0;width:100%;justify-content:space-between;gap:8px}
+    nav.top-nav a.link{display:none}
+  }
+  .card{position:relative;background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r-card);padding:24px;box-shadow:var(--shadow);
+        transition:transform .18s,box-shadow .18s}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+  .card .w{position:absolute;top:14px;inset-inline-end:14px;width:24px;height:24px;opacity:.2}
+  .card h3{font-size:18px;font-weight:700;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:14.5px;margin-bottom:16px}
+  .pill{display:inline-block;background:var(--bg);border:1px solid var(--border);
+        color:var(--muted);font-size:12.5px;font-weight:500;padding:3px 12px;border-radius:999px}
+
+  .themebtn{background:transparent;border:1px solid var(--border);color:var(--muted);
+        font:inherit;font-size:13.5px;font-weight:600;padding:7px 14px;border-radius:var(--r-btn);
+        cursor:pointer;transition:color .15s,border-color .15s}
+  .themebtn:hover{color:var(--text);border-color:var(--cta)}
+  footer{background:var(--surface);border-top:1px solid var(--border);padding:40px 0 32px;text-align:center}
+  footer .wm{width:88px;height:88px;opacity:.12;display:block;margin:0 auto 8px}
+  .by{color:var(--muted);font-size:14px}
+  .cp{color:var(--muted);opacity:.65;font-size:12.5px;margin-top:6px}
+  .back{display:inline-block;margin-top:14px;color:var(--cta);font-weight:700;font-size:14px}
+  .back:hover{color:var(--cta-hover)}
+</style>
+<script data-purpose="theme-preflight">
+  /* apply saved theme before first paint (no flash) */
+  try{ if(localStorage.getItem('pf-theme')==='dark') document.documentElement.setAttribute('data-theme','dark'); }catch(e){}
+</script>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="win" viewBox="0 0 120 120">
+    <path d="M18 28 L42 92 L60 52 L78 92 L102 28"
+          fill="none" stroke="currentColor" stroke-width="10"
+          stroke-linecap="square" stroke-linejoin="miter"/>
+    <rect x="108" y="28" width="6" height="64" style="fill:var(--cta)"/>
+  </symbol>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="winner apps">
+      <svg class="mono" style="color:var(--cta)"><use href="#win"/></svg>
+      <span class="latin">winner&nbsp;</span><span class="latin b-apps">apps</span>
+    </a>
+    <nav class="top-nav" aria-label="التنقل الرئيسي">
+      <a class="link" href="portfolio.html">رجوع للبورتفوليو</a>
+      <button class="themebtn" id="themeToggle" type="button"><span id="themeText">دارك مود</span></button>
+      <a class="btn" href="https://wa.me/201006125478" target="_blank" rel="noopener">تواصل</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <svg class="wm" style="color:var(--cta)"><use href="#win"/></svg>
+    <p class="eyebrow">مجموعة تطبيقات شخصية</p>
+    <h1>تطبيقات تُبنى بعناية،<br>وتُسلَّم بالنتيجة.</h1>
+    <p class="sub">من فصل الصوت إلى تلخيص المحتوى وأدوات التطوير — من تطوير محمود رابح.</p>
+    <a class="btn" href="#apps">استعرض التطبيقات</a>
+  </section>
+
+  <section class="apps" id="apps">
+    <div class="wrap">
+      <h2>التطبيقات</h2>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="grid">
+
+        <article class="card">
+          <svg class="w" style="color:var(--cta)"><use href="#win"/></svg>
+          <h3 class="latin">winner music remover</h3>
+          <p>فصل الموسيقى عن الصوت بجودة عالية، عبر إضافة متصفح وتطبيق ويب.</p>
+          <span class="pill">صوت</span>
+        </article>
+
+        <article class="card">
+          <svg class="w" style="color:var(--cta)"><use href="#win"/></svg>
+          <h3 class="latin">winner LM</h3>
+          <p>تجميع وتلخيص المحتوى من مصادر متعددة في لوحة واحدة.</p>
+          <span class="pill">ذكاء اصطناعي</span>
+        </article>
+
+        <article class="card">
+          <svg class="w" style="color:var(--cta)"><use href="#win"/></svg>
+          <h3 class="latin">winner agent</h3>
+          <p>مساعد تقني محلي يربط أدواتك في مسار عمل واحد.</p>
+          <span class="pill">أتمتة</span>
+        </article>
+
+        <article class="card">
+          <svg class="w" style="color:var(--cta)"><use href="#win"/></svg>
+          <h3 class="latin">media-buying</h3>
+          <p>أدوات تنظيم وتعلم شراء الإعلانات والمحتوى التسويقي.</p>
+          <span class="pill">تسويق</span>
+        </article>
+
+        <article class="card">
+          <svg class="w" style="color:var(--cta)"><use href="#win"/></svg>
+          <h3 class="latin">job-hunt</h3>
+          <p>مجمع وظائف ومساعد تحليل للفرص المناسبة لمهاراتك.</p>
+          <span class="pill">وظائف</span>
+        </article>
+
+        <article class="card">
+          <svg class="w" style="color:var(--cta)"><use href="#win"/></svg>
+          <h3 class="latin">tools</h3>
+          <p>أدوات CLI صغيرة تحلّ مشكلات يومية بسرعة.</p>
+          <span class="pill">أدوات</span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <svg class="wm" style="color:var(--text)"><use href="#win"/></svg>
+  <p class="by">winner apps — محمود رابح</p>
+  <p class="cp">© 2026 محمود رابح. جميع الحقوق محفوظة.</p>
+  <a class="back" href="portfolio.html">← رجوع إلى البورتفوليو</a>
+</footer>
+
+<script data-purpose="theme-toggle">
+document.addEventListener('DOMContentLoaded',()=>{
+  const btn=document.getElementById('themeToggle');
+  const label=document.getElementById('themeText');
+  const isDark=()=>document.documentElement.getAttribute('data-theme')==='dark';
+  const apply=d=>{
+    if(d) document.documentElement.setAttribute('data-theme','dark');
+    else document.documentElement.removeAttribute('data-theme');
+    if(label) label.textContent = d ? 'لايت مود' : 'دارك مود';
+    try{ localStorage.setItem('pf-theme', d?'dark':'light'); }catch(e){}
+  };
+  apply(isDark());
+  if(btn) btn.addEventListener('click',()=>apply(!isDark()));
+});
+</script>
+
+</body>
+</html>
