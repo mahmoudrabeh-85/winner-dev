@@ -67,8 +67,8 @@
               900: '#0B0F17',
               800: '#0F131C',
               700: '#171E2D',
-              600: '#232D42',
-              500: '#1B2440'
+              600: '#1B2440',
+              500: '#121828'
             },
             gold: {
               300: '#FDE047',
@@ -98,7 +98,7 @@
       --card-bg: rgba(47, 57, 81, 0.70);
     }
     body {
-      background-color: #1B2440;
+      background-color: #121828;
       color: #F3F4F6;
       font-family: 'Inter', 'Tajawal', sans-serif;
       overflow-x: hidden;
@@ -112,18 +112,18 @@
       background-image: url('jpg.png');
       background-size: cover;
       background-position: center 25%;
-      opacity: 0.22;
-      filter: blur(3px);
+  opacity: 0.46;
+  filter: blur(2px);
       transform: scale(1.02);
       pointer-events: none;
     }
     /* Tablet: softer background */
     @media (max-width: 768px) {
-      body::before { opacity: 0.18; }
+      body::before { opacity: 0.38; }
     }
     /* Mobile: lightest background for readability */
     @media (max-width: 480px) {
-      body::before { opacity: 0.15; }
+      body::before { opacity: 0.32; }
     }
     .glass-panel {
       background: var(--card-bg);
@@ -289,6 +289,10 @@
   </style>
 </head>
 <body class="bg-obsidian-500 text-gray-100 antialiased selection:bg-gold-500 selection:text-obsidian-950">
+<script data-purpose="theme-default-light">
+  /* 2026-10-18: LIGHT is the default theme. Runs before the rest of <body> is parsed -> no flash. */
+  try{ if(localStorage.getItem('pf-theme') !== 'dark') document.body.classList.add('light-mode'); }catch(e){}
+</script>
 <!-- BEGIN: StickyNavigation -->
 <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-obsidian-600/85 border-b border-gold-500/20">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -303,14 +307,22 @@
 </div>
 </a>
 <!-- Desktop Nav Links -->
-<nav class="hidden lg:flex items-center gap-7 text-sm font-medium">
+<nav class="hidden lg:flex items-center gap-3 xl:gap-7 text-sm font-medium">
 <a class="text-gray-300 hover:text-gold-400 transition" data-ar="الرئيسية" data-en="Home" href="#home">الرئيسية</a>
 <a class="text-gray-300 hover:text-gold-400 transition" data-ar="عني" data-en="About Me" href="#about">عني</a>
 <a class="text-gray-300 hover:text-gold-400 transition" data-ar="المجالات" data-en="Domains" href="#brands-overview">المجالات</a>
 <a class="text-gray-300 hover:text-gold-400 transition" data-ar="الخدمات" data-en="Services" href="#services">الخدمات</a>
 <a class="text-gray-300 hover:text-gold-400 transition" data-ar="منهجية العمل" data-en="Process" href="#process">منهجية العمل</a>
 <a class="text-gray-300 hover:text-gold-400 transition" data-ar="المشاريع" data-en="Projects" href="#projects">المشاريع</a>
-<a class="text-gray-300 hover:text-gold-400 transition" data-ar="أدوات بنيتها" data-en="Tools I Built" href="#toolkit">أدوات بنيتها</a>
+<a class="nav-cta nav-cta-ghost" href="#toolkit">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M4 17l6-5-6-5M12 19h8"></path></svg>
+<span data-ar="أدوات بنيتها" data-en="Tools I Built">أدوات بنيتها</span>
+</a>
+<a class="nav-cta nav-cta-primary" href="apps.html">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.8"></rect><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.8"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.8"></rect></svg>
+<span data-ar="تطبيقاتي" data-en="Winner Apps">تطبيقاتي</span>
+<svg class="nav-cta-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+</a>
 <a class="text-gray-300 hover:text-gold-400 transition" data-ar="تواصل معي" data-en="Contact" href="#contact">تواصل معي</a>
 </nav>
 <!-- Action & Language Toggle -->
@@ -319,6 +331,10 @@
 <button class="lang-toggle interactive-element px-3 py-1.5 rounded-md border border-gold-500/40 text-gold-400 hover:bg-gold-500 hover:text-obsidian-950 transition font-medium text-xs sm:text-sm flex items-center gap-2" id="langToggle">
 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 <span id="langText" class="">تغيير اللغة</span>
+</button>
+<button id="themeToggle" class="interactive-element px-3 py-1.5 rounded-md border border-gold-500/40 text-gold-400 hover:bg-gold-500 hover:text-obsidian-950 transition font-medium text-xs sm:text-sm flex items-center gap-2" aria-label="تبديل الثيم لايت/دارك">
+<svg id="themeIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+<span id="themeText">لايت مود</span>
 </button>
 <a class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs uppercase tracking-wider font-semibold rounded-md bg-gold-500 text-obsidian-950 hover:bg-gold-400 transition shadow-gold-glow" data-ar="احجز استشارة" data-en="Book Consultation" href="#contact">
           احجز استشارة
@@ -338,7 +354,15 @@
 <a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="الخدمات" data-en="Services" href="#services">الخدمات</a>
 <a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="منهجية العمل" data-en="Process" href="#process">منهجية العمل</a>
 <a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="المشاريع" data-en="Projects" href="#projects">المشاريع</a>
-<a class="block px-2 py-3 border-b border-white/5 text-gray-200 hover:text-gold-400 transition" data-ar="أدوات بنيتها" data-en="Tools I Built" href="#toolkit">أدوات بنيتها</a>
+<a class="nav-cta-m nav-cta-m-ghost" href="#toolkit">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M4 17l6-5-6-5M12 19h8"></path></svg>
+<span data-ar="أدوات بنيتها" data-en="Tools I Built">أدوات بنيتها</span>
+</a>
+<a class="nav-cta-m nav-cta-m-primary" href="apps.html">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.8"></rect><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.8"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.8"></rect></svg>
+<span data-ar="تطبيقاتي" data-en="Winner Apps">تطبيقاتي</span>
+<svg class="nav-cta-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+</a>
 <a class="block px-2 py-3 text-gray-200 hover:text-gold-400 transition" data-ar="تواصل معي" data-en="Contact" href="#contact">تواصل معي</a>
 </nav>
 </div>
@@ -385,7 +409,7 @@
 <!-- END: QRModal -->
 <main>
 <!-- BEGIN: HeroSection (#home) -->
-<section class="relative min-h-[92vh] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 overflow-hidden" id="home"><div class="absolute inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute top-1/4 right-1/4 w-3 h-3 rounded-full bg-gold-400 blur-[1px] float-particle-1"></div><div class="absolute top-1/2 left-1/5 w-2 h-2 rounded-full bg-gold-300 blur-[1px] float-particle-2"></div><div class="absolute bottom-1/3 right-1/3 w-2.5 h-2.5 rounded-full bg-gold-500 blur-[1px] float-particle-3"></div><div class="absolute top-2/3 left-1/3 w-1.5 h-1.5 rounded-full bg-gold-300 blur-[0.5px] float-particle-1"></div></div><div class="absolute inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-obsidian-600 via-obsidian-600/70 to-obsidian-600/55"></div><div class="absolute inset-0 bg-obsidian-600/35 backdrop-blur-[2px]"></div></div>
+<section class="relative min-h-[92vh] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 overflow-hidden" id="home"><div class="absolute inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute top-1/4 right-1/4 w-3 h-3 rounded-full bg-gold-400 blur-[1px] float-particle-1"></div><div class="absolute top-1/2 left-1/5 w-2 h-2 rounded-full bg-gold-300 blur-[1px] float-particle-2"></div><div class="absolute bottom-1/3 right-1/3 w-2.5 h-2.5 rounded-full bg-gold-500 blur-[1px] float-particle-3"></div><div class="absolute top-2/3 left-1/3 w-1.5 h-1.5 rounded-full bg-gold-300 blur-[0.5px] float-particle-1"></div></div><div class="absolute inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-obsidian-600/85 via-obsidian-600/45 to-obsidian-600/15"></div><div class="absolute inset-0 bg-obsidian-600/15 backdrop-blur-[2px]"></div></div>
 <!-- Decorative Obsidian & Gold ambient backdrop -->
 <div class="absolute top-1/4 -right-40 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
 <div class="absolute bottom-10 -left-40 w-96 h-96 bg-obsidian-700/50 rounded-full blur-3xl pointer-events-none"></div>
@@ -396,12 +420,12 @@
 <span class="w-2.5 h-2.5 rounded-full bg-gold-400 animate-pulse"></span>
 <span class="text-xs font-semibold text-gold-300 tracking-wide" data-ar="متاح للاستشارات والتعاقدات التنفيذية" data-en="Available for Executive Advisory &amp; Retainers">متاح للاستشارات والتعاقدات التنفيذية</span>
 </div>
-<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display leading-tight text-white">
-<span class="block" data-ar="محمود رابح" data-en="Mahmoud Rabeh">محمود رابح</span>
-<span class="gold-gradient-text text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-2 block" data-ar="مستشار مشتريات وسلاسل إمداد" data-en="Procurement &amp; Supply Chain Consultant">
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display leading-[1.35] text-white">
+<span class="block leading-[1.2]" data-ar="محمود رابح" data-en="Mahmoud Rabeh">محمود رابح</span>
+<span class="gold-gradient-text text-3xl sm:text-4xl lg:text-5xl font-extrabold !leading-[1.25] mt-3 block" data-ar="مستشار مشتريات وسلاسل إمداد" data-en="Procurement &amp; Supply Chain Consultant">
               مستشار مشتريات وسلاسل إمداد
             </span>
-<span class="block text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-200 mt-1" data-ar="مبرمج ومطور مواقع وتطبيقات ومحفظ قرآن ومعلم لغة عربية" data-en="Developer, Web &amp; App Builder, Quran Tutor &amp; Arabic Teacher">
+<span class="block text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-200 !leading-[1.35] mt-3" data-ar="مبرمج ومطور مواقع وتطبيقات ومحفظ قرآن ومعلم لغة عربية" data-en="Developer, Web &amp; App Builder, Quran Tutor &amp; Arabic Teacher">
               مبرمج ومطور مواقع وتطبيقات ومحفظ قرآن ومعلم لغة عربية
             </span>
 </h1>
@@ -445,7 +469,7 @@
 <img alt="محمود رابح - مستشار تنفيذي" class="w-full h-full object-cover object-top hover:scale-105 transition duration-700 ease-out" src="jpg.png">
 </div>
 <!-- Floating Glass Badge 1: Experience -->
-<div class="absolute -bottom-5 -left-4 glass-panel py-2.5 px-4 rounded-xl shadow-xl flex items-center gap-3 border border-gold-500/40">
+<div class="absolute -bottom-5 -left-4 glass-panel py-2.5 px-4 rounded-xl shadow-xl flex items-center gap-3 border border-gold-500/40" style="position:absolute;bottom:-20px;left:-16px;top:auto;right:auto">
 <div class="w-10 h-10 rounded-lg bg-gold-500/20 text-gold-400 flex items-center justify-center font-bold text-lg">
                 18+
               </div>
@@ -455,7 +479,7 @@
 </div>
 </div>
 <!-- Floating Glass Badge 2: Scale -->
-<div class="absolute -top-4 -right-4 glass-panel py-2 px-3.5 rounded-xl shadow-xl flex items-center gap-2 border border-gold-500/40">
+<div class="absolute -top-4 -right-4 glass-panel py-2 px-3.5 rounded-xl shadow-xl flex items-center gap-2 border border-gold-500/40" style="position:absolute;top:-16px;right:-16px;bottom:auto;left:auto">
 <span class="h-3 w-3 rounded-full bg-emerald-400 animate-ping"></span>
 <p class="text-xs font-semibold text-gray-200" data-ar="إدارة تدفقات استراتيجية" data-en="Strategic Flow Management">إدارة تدفقات استراتيجية</p>
 </div>
@@ -1297,10 +1321,10 @@
 </a>
 <!-- Professional Profiles Links -->
 <div class="pt-4 border-t border-obsidian-700 flex items-center gap-4">
-<a class="text-xs font-semibold px-4 py-2 rounded-lg bg-obsidian-600 hover:bg-gold-500 hover:text-obsidian-950 transition border border-gold-500/30" href="https://linkedin.com" rel="noopener" target="_blank">
+<a class="profile-btn text-xs font-semibold px-4 py-2 rounded-lg bg-obsidian-600 hover:bg-gold-500 hover:text-obsidian-950 transition border border-gold-500/30" href="https://linkedin.com" rel="noopener" target="_blank">
                   LinkedIn Profile
                 </a>
-<a class="text-xs font-semibold px-4 py-2 rounded-lg bg-obsidian-600 hover:bg-gold-500 hover:text-obsidian-950 transition border border-gold-500/30" href="https://upwork.com" rel="noopener" target="_blank">
+<a class="profile-btn text-xs font-semibold px-4 py-2 rounded-lg bg-obsidian-600 hover:bg-gold-500 hover:text-obsidian-950 transition border border-gold-500/30" href="https://upwork.com" rel="noopener" target="_blank">
                   Upwork Verified
                 </a>
 </div>
@@ -1605,4 +1629,199 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2600);
   };
 });
-</script></body></html>
+</script>
+
+<!-- ========== MOTION LIVE SYSTEM v6 (2026-10-17): hero choreography + live orbs + glass tilt/spotlight + nav underline ========== -->
+<style data-purpose="motion-live-v6">
+  /* === 0) reveal fix (v4 JS had .is-visible with no CSS) + stagger === */
+  .reveal-on-scroll{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .reveal-on-scroll.is-visible{opacity:1;transform:translateY(0)}
+  [data-stagger] > *{transition-delay:calc(var(--i,0) * 60ms)}
+
+  /* === 1) GOLD SHEEN sweep on primary CTAs === */
+  a[class*="bg-gold-500"]{position:relative;overflow:hidden;isolation:isolate}
+  a[class*="bg-gold-500"]::after{
+    content:"";position:absolute;top:-40%;bottom:-40%;left:-60%;width:45%;
+    background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+    transform:translateX(-120%) skewX(-18deg);pointer-events:none;
+  }
+  a[class*="bg-gold-500"]:hover::after{transform:translateX(320%) skewX(-18deg);transition:transform .55s var(--ease)}
+
+  /* === 2) HERO ENTRANCE CHOREOGRAPHY (runs once on load) === */
+  @keyframes heroRise{from{opacity:0;transform:translateY(24px);filter:blur(6px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+  #home .hero-badge,
+  #home h1 > span,
+  #home > .max-w-7xl p,
+  #home > .max-w-7xl .flex.flex-wrap,
+  #home > .max-w-7xl .pt-6 > div{
+    animation:heroRise .7s var(--ease) both;
+  }
+  #home .hero-badge{animation-delay:.05s}
+  #home h1 > span:nth-child(1){animation-delay:.18s}
+  #home h1 > span:nth-child(2){animation-delay:.32s}
+  #home h1 > span:nth-child(3){animation-delay:.46s}
+  #home > .max-w-7xl p{animation-delay:.58s}
+  #home > .max-w-7xl .flex.flex-wrap{animation-delay:.70s}
+  #home > .max-w-7xl .pt-6 > div{animation-delay:.82s}
+
+  /* name line keeps its white strength, subtitle keeps its gradient; add live polish to name line */
+  #home h1 > span:nth-child(1){
+    background:linear-gradient(100deg,#FFFFFF 20%,#FDE047 50%,#FFFFFF 80%);
+    background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:heroRise .7s var(--ease) both, goldShimmer 7s linear infinite;animation-delay:.18s,1.2s;
+  }
+  @keyframes goldShimmer{from{background-position:220% 0}to{background-position:-60% 0}}
+
+  /* === 3) LIVE FLOATING ORBS — REMOVED 2026-10-18 (user: the gold orb under "ب" in the name read as a diacritic dot) === */
+
+  /* === 4) GLASS PANELS: mouse spotlight + 3D tilt (consumes --mouse-x/y; adds --rx/ry via JS) === */
+  .glass-panel{position:relative;isolation:isolate;
+    transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+    transition:transform .35s var(--ease)}
+  .glass-panel:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-4px)}
+  .glass-panel::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;opacity:0;
+    background:radial-gradient(260px circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(253,224,71,.12),transparent 62%);
+    transition:opacity .35s var(--ease);pointer-events:none;
+  }
+  .glass-panel:hover::before{opacity:1}
+
+  /* === 5) NAV gold underline (desktop header links) === */
+  header nav a{position:relative}
+  header nav a::after{
+    content:"";position:absolute;bottom:-6px;inset-inline-start:0;width:100%;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,#FDE047,#D4A843);
+    transform:scaleX(0);transform-origin:right;transition:transform .28s var(--ease);
+  }
+  header nav a:hover::after{transform:scaleX(1)}
+</style>
+<script data-purpose="motion-live-v6-js">
+document.addEventListener('DOMContentLoaded', () => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // live orbs: REMOVED 2026-10-18 (user request — orb read as a stray dot under the name)
+
+  // 3D tilt + spotlight coords (v4 JS sets --mouse-x/y; we add --rx/--ry)
+  if (!reduced) {
+    document.querySelectorAll('.glass-panel').forEach(panel => {
+      panel.addEventListener('pointermove', e => {
+        const r = panel.getBoundingClientRect();
+        const nx = (e.clientX - r.left - r.width/2) / r.width;
+        const ny = (e.clientY - r.top - r.height/2) / r.height;
+        panel.style.setProperty('--ry', (nx * 5).toFixed(2) + 'deg');
+        panel.style.setProperty('--rx', (-ny * 5).toFixed(2) + 'deg');
+      });
+      panel.addEventListener('pointerleave', () => {
+        panel.style.setProperty('--rx', '0deg');
+        panel.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  // stagger indices (kept from v5)
+  document.querySelectorAll('section .grid').forEach(grid => {
+    [...grid.children].forEach((el, i) => el.style.setProperty('--i', Math.min(i, 8)));
+  });
+});
+</script>
+
+<!-- ========== NAV CTA LAYER (2026-10-18): "أدوات بنيتها" + "تطبيقاتي" as attention magnets ========== -->
+<style data-purpose="nav-cta-v1">
+  /* desktop pills */
+  .nav-cta{position:relative;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+    padding:8px 15px;border-radius:9999px;font-weight:700;font-size:12.5px;line-height:1;
+    overflow:hidden;isolation:isolate;
+    transition:transform .18s var(--ease),box-shadow .25s var(--ease),background .2s,color .2s,border-color .2s}
+  .nav-cta svg{width:15px;height:15px;flex:none}
+  .nav-cta-arrow{opacity:.85;transition:transform .2s var(--ease)}
+  .nav-cta:hover .nav-cta-arrow{transform:translate(2px,-2px)}
+  /* primary = تطبيقاتي */
+  .nav-cta-primary{color:#0B0F17;border:1px solid rgba(253,224,71,.55);
+    background:linear-gradient(135deg,#FDE047 0%,#D4A843 55%,#B88B2A 100%);
+    box-shadow:0 3px 12px rgba(212,168,67,.28)}
+  .nav-cta-primary:hover{transform:translateY(-1px);box-shadow:0 7px 22px rgba(212,168,67,.45)}
+  /* outline = أدوات بنيتها */
+  .nav-cta-ghost{color:#FDE047;border:1px solid rgba(212,168,67,.45);background:rgba(212,168,67,.07)}
+  .nav-cta-ghost:hover{color:#FDE047;background:rgba(212,168,67,.16);
+    border-color:rgba(212,168,67,.7);transform:translateY(-1px)}
+  /* sheen sweep (both) */
+  .nav-cta::after{content:"";position:absolute;top:-40%;bottom:-40%;left:-60%;width:45%;
+    background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);
+    transform:translateX(-120%) skewX(-18deg);pointer-events:none}
+  .nav-cta:hover::after{transform:translateX(320%) skewX(-18deg);transition:transform .55s var(--ease)}
+  /* mobile menu blocks */
+  .nav-cta-m{display:flex;align-items:center;gap:9px;margin:6px 0;padding:12px 14px;border-radius:12px;
+    font-weight:700;font-size:14px;position:relative;overflow:hidden;isolation:isolate}
+  .nav-cta-m svg{width:16px;height:16px;flex:none}
+  .nav-cta-m span{margin-inline-end:auto}
+  .nav-cta-m-primary{color:#0B0F17;border:1px solid rgba(253,224,71,.5);
+    background:linear-gradient(135deg,#FDE047,#D4A843 55%,#B88B2A);
+    box-shadow:0 4px 14px rgba(212,168,67,.25)}
+  .nav-cta-m-ghost{color:#FDE047;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.4)}
+  /* light mode overrides */
+  body.light-mode .nav-cta-primary,body.light-mode .nav-cta-m-primary{color:#FFFFFF;
+    border-color:rgba(138,101,25,.55);background:linear-gradient(135deg,#8A6519 0%,#6E4E10 100%);
+    box-shadow:0 3px 12px rgba(138,101,25,.22)}
+  body.light-mode .nav-cta-primary:hover,body.light-mode .nav-cta-m-primary:hover{box-shadow:0 7px 22px rgba(138,101,25,.4)}
+  body.light-mode .nav-cta-ghost,body.light-mode .nav-cta-m-ghost{color:#8A6519;
+    background:rgba(151,112,31,.07);border-color:rgba(151,112,31,.45)}
+  body.light-mode .nav-cta-ghost:hover,body.light-mode .nav-cta-m-ghost:hover{color:#6E4E10;
+    background:rgba(151,112,31,.16);border-color:rgba(151,112,31,.7)}
+  @media (prefers-reduced-motion: reduce){
+    .nav-cta::after{display:none}
+    .nav-cta:hover,.nav-cta-primary:hover,.nav-cta-ghost:hover{transform:none}
+  }
+  /* compact pills between lg and xl so the 9-item nav never overflows (measured 2026-10-18) */
+  @media (min-width:1024px) and (max-width:1279px){
+    .nav-cta{padding:7px 12px;font-size:11.5px;gap:5px}
+    .nav-cta svg{width:13px;height:13px}
+    .nav-cta-arrow{display:none}
+  }
+</style>
+<!-- ========== LIGHT MODE LAYER (2026-10-17) ========== -->
+<style data-purpose="light-mode-v1">
+  /* foundational flip */
+  body.light-mode{background-color:#F3F6FA;color:#1F2937}
+  body.light-mode::before{opacity:.12}
+  /* header + sections + footer surfaces */
+  body.light-mode header{background:rgba(255,255,255,.9)!important}
+  body.light-mode section[class*="bg-obsidian-600"]{background-color:#FFFFFF!important}
+  body.light-mode section:not([class*="bg-obsidian-600"]){background-color:transparent}
+  body.light-mode footer{background:#FFFFFF!important}
+  body.light-mode #mobileMenu{background:rgba(255,255,255,.96)!important}
+  /* sections' separators */
+  body.light-mode [class*="border-obsidian"]{border-color:#E4EAF0!important}
+  /* cards (glass) */
+  body.light-mode .glass-panel{background:rgba(255,255,255,.82);border-color:rgba(185,139,42,.28);box-shadow:0 8px 32px rgba(11,18,32,.10)}
+  /* text ladder */
+  body.light-mode .text-white{color:#0B1220!important}
+  body.light-mode [class*="text-gray-1"],body.light-mode [class*="text-gray-2"]{color:#0B1220!important}
+  body.light-mode [class*="text-gray-3"],body.light-mode [class*="text-gray-4"],body.light-mode [class*="text-gray-5"]{color:#5B6B7C!important}
+  body.light-mode [class*="text-gold-3"],body.light-mode [class*="text-gold-4"]{color:#97701F!important}
+  /* hero name shimmer to dark-gold so it survives on light */
+  body.light-mode #home h1 > span:nth-child(1){background-image:linear-gradient(100deg,#0B1220 20%,#B88B2A 50%,#0B1220 80%)}
+  /* live orbs removed 2026-10-18 */
+  /* skill/progress track fills */
+  body.light-mode [class*="bg-obsidian-700"]{background-color:#E4EAF0!important}
+  /* forms */
+  body.light-mode input,body.light-mode textarea,body.light-mode select{background:#FFFFFF!important;color:#0B1220!important;border-color:rgba(185,139,42,.35)!important}
+  /* profile buttons (LinkedIn / Upwork): were dark-on-dark in light mode */
+  body.light-mode .profile-btn{color:#FFFFFF!important}
+  body.light-mode .profile-btn:hover{color:#070A0F!important}
+</style>
+<script data-purpose="light-mode-js">
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('themeToggle');
+  const text = document.getElementById('themeText');
+  const apply = isLight => {
+    document.body.classList.toggle('light-mode', isLight);
+    text.textContent = isLight ? 'دارك مود' : 'لايت مود';
+    localStorage.setItem('pf-theme', isLight ? 'light' : 'dark');
+  };
+  /* LIGHT is the default (2026-10-18): only an explicit saved "dark" switches us out of it */
+  const saved = localStorage.getItem('pf-theme');
+  apply(saved ? saved === 'light' : true);
+  if (btn) btn.addEventListener('click', () => apply(!document.body.classList.contains('light-mode')));
+});
+</script>
+</body></html>
