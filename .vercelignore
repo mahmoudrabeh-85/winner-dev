@@ -1,0 +1,7 @@
+bot/
+versions/
+09_Website/
+.playwright-mcp/
+.faster-whisper-model/
+*.log
+*.zip
